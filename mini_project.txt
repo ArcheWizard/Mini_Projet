@@ -1,0 +1,71 @@
+Module 1 : Client ( heritage compte , gerant)
+           *Attribues : 
+                - private nom
+                - private prenom 
+                - protected cin 
+                 -private pass
+                - protected  status
+                - protected nbcomptes 
+                - protected salaire_annuelle 
+                - protected prêt_totale
+            * Methodes :
+               -consturctor
+               - setter w getter
+               -demander_compte()
+               -consulter_compte()
+
+Module 2 : Compte (heritage .....)
+            *Attribues : 
+                  - protected ref_compte
+                  - protected balance
+                  - protected member_sh
+                  - protected pret 
+                  - protected versement
+              *Methodes : 
+                  - constructor
+                  - setter w getter
+                  - generer_ref()             
+                  - depot()
+             	  -retrait()
+             	  -transfert()
+                  -demande_supp_compte()
+
+
+Module 3 Gerant (heritage ...........)
+             *Methodes:
+                 -consulter_comptes()
+                 -ajouter_compte()
+                 -supp_compte()
+                 -set_nbr_comptes()
+                 -set_nbr_prets()
+                 -pret()
+module banque:(heritage ...........)
+            *Attribues :
+              -private  List<compte-cl> 
+               
+              
+
+            
+
+               
+              
+
+
+
+               
+
+                
+
+               
+                
+               
+             
+               
+                 
+                
+                
+
+                
+
+                
+                
