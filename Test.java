@@ -2,6 +2,12 @@ package Mini_Projet;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+/* Database Import */
+import java.sql.*;
+/* Graphical Interface Import */
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Test {
     public static void main(String[] args) {
