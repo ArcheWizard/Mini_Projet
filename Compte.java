@@ -7,14 +7,12 @@ public class Compte extends Client{
         enum membership{Bronze, Silver, Gold}
         membership ms;
         float balance;
-        float pret;
     
     public Compte(String nom, String prenom, String cin, float salaire_anuelle){
         super(nom, prenom, cin, salaire_anuelle);
-        this.ref_compte=generer_ref_compte(nom,prenom,cin,nb_compte);
+        this.ref_compte=generer_ref_compte(nom,prenom,cin);
         this.ms=membership.Bronze;
         this.balance=0.0f;
-        this.pret=0.0f;
     }
 
     public String getRef_compte() {
@@ -29,10 +27,6 @@ public class Compte extends Client{
         return balance;
     }
 
-    public float getPret() {
-        return pret;
-    }
-
     public void setRef_compte(String ref_compte) {
         this.ref_compte = ref_compte;
     }
@@ -45,11 +39,7 @@ public class Compte extends Client{
         this.balance = balance;
     }
 
-    public void setPret(float pret) {
-        this.pret = pret;
-    }
-
-    public String generer_ref_compte(String nom, String prenom, String cin, int nb_compte){
+    public String generer_ref_compte(String nom, String prenom, String cin){
         
         String ref_compte = "";
         String full_name=nom+prenom;
@@ -62,29 +52,38 @@ public class Compte extends Client{
 			}
 		}
 
-        ref_compte+=cin.substring(-3)+nb_compte;
+        ref_compte+=cin.substring(-3);
 
         return ref_compte;
         
     }
 
-    public void depot(){
-
+    public void depot(double montant){
+        if (montant > 0) {
+            balance += montant;
+        } else {
+            System.out.println("Invalid deposit montant!");
+        }
     }
 
-    public void retrait(){
-
+    public void retrait(double montant){
+        if (montant > 0 && montant <= balance) {
+            balance -= montant;
+        } else {
+            System.out.println("Invalid withdrawal montant!");
+        }
     }
 
-    public void transfer(){
-
+    public void transfer(Compte compte, double montant){
+        if (montant > 0 && montant <= balance) {
+            this.retrait(montant);
+            compte.depot(montant);
+        } else {
+            System.out.println("Invalid transfer montant!");
+        }
     }
 
-    public void demande_supp_compte(){
-
-    }
-
-    public String toString(String ref_compte) {
-        return super.toString()+"Votre compte de reference: ("+getRef_compte()+"). Tu as une balance de: ("+getBalance()+"DT). Votre abonnement est: ("+getMs()+"). Tu as un pret de: (-"+getPret()+"DT)";
+    public String toString() {
+        return super.toString()+"Votre compte de reference: ("+getRef_compte()+"). Tu as une balance de: ("+getBalance()+"DT). Votre abonnement est: ("+getMs()+").";
     }
 }

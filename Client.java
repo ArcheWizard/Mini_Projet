@@ -1,36 +1,25 @@
 package Mini_Projet;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client{
     
-    private
+    private String cin;
+    private String nom;
+    private String prenom;
+    private String pass;
+    private List<Compte> comptes;
+    private float salaire_anuelle;
 
-        String nom;
-        String prenom;
-        String pass;
-
-    protected
-
-        String cin;
-        int nb_compte;
-        String status;
-        float salaire_anuelle;
-
-    
-    public Client(){
-        this.nom=null;
-        this.prenom=null;
-        this.pass=null;
-        this.cin=null;
-        this.salaire_anuelle=0.0f;
-    }
 
     public Client(String nom, String prenom, String cin, float salaire_anuelle){
         this.nom=nom;
         this.prenom=prenom;
         this.pass=generer_pass(this.nom, this.prenom, this.cin);
         this.cin=cin;
+        this.comptes = new ArrayList<>();
         this.salaire_anuelle=salaire_anuelle;
     }
 
@@ -46,12 +35,18 @@ public class Client{
         return cin;
     }
 
-    public int getNbCompte() {
-        return nb_compte;
+    public List<Compte> getComptes() {
+        return comptes;
     }
 
-    public String getStatus() {
-        return status;
+    public Compte getCompte(String refcompte){
+        for (int i = 0; i < comptes.size(); i++){
+            Compte compte = comptes.get(i);
+            if (compte.getRef_compte()==refcompte){
+                return compte;
+            }
+        }
+        return null;
     }
 
     public float getSalaire_anuelle() {
@@ -64,14 +59,6 @@ public class Client{
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
-    }
-
-    public void setNbCompte(int nb_compte) {
-        this.nb_compte = nb_compte;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public void setSalaire_anuelle(float salaire_anuelle) {
@@ -111,14 +98,23 @@ public class Client{
 
     }
 
-    public void demander_compte(String pass)
+    public void demande_ajout_compte()
     {
-
+        /*
+         * This is gonna add a request to the requests table in the database, from which the manager will access and will either approve that request, or deny it.
+         */
     }
 
-    public void consulter_compte(String ref_compte, String pass)
+    public void demande_supp_compte(String refcompte){
+        /*
+         * This is gonna add a request to the requests table in the database, from which the manager will access and will either approve that request, or deny it.
+         */
+    }
+
+    public void consulter_compte(String ref_compte)
     {
-        
+        Compte compte = getCompte(ref_compte);
+        System.out.println(compte.toString());   
     }
 
     public String toString() {

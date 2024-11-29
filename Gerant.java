@@ -1,22 +1,18 @@
 package Mini_Projet;
 
+import java.util.List;
 import java.util.Random;
 
 public class Gerant {
 
-    private
-        String nom;
-        String prenom;
-        String pass;
+    private String cin;
+    private String nom;
+    private String prenom;
+    private String pass;
+    private List<Transaction> transactions;
 
-    
-    public Gerant(){
-        this.nom=null;
-        this.prenom=null;
-        this.pass=null;
-    } 
-
-    public Gerant(String nom, String prenom){
+    public Gerant(String cin, String nom, String prenom){
+        this.cin=cin;
         this.nom=nom;
         this.prenom=prenom;
         pass=generer_pass(this.nom, this.prenom);
@@ -67,23 +63,11 @@ public class Gerant {
         
     }
     
-    public void consulter_comptes(){
-
+    public void consulter_comptes(Client client){
+        System.out.println(client.toString());
+        for (Compte compte : client.getComptes()) {
+            System.out.println("Reference Compte: " + compte.getRef_compte() + ", Balance: " + compte.getBalance());
+        }
     }
 
-    public void ajouter_compte(){
-
-    }
-
-    public void supp_compte(){
-
-    }
-
-    public void set_nbr_comptes(){
-
-    }
-
-    public void pret(){
-        
-    }
 }

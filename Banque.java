@@ -1,20 +1,40 @@
 package Mini_Projet;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Banque {
-    private
-        ArrayList<Client_Comptes> liste_client_comptes;
+public class Banque{
+
+    private List<Client> clients;
+    private List<Gerant> gerants;
+
+    public Banque() {
+        this.clients = new ArrayList<>();
+        this.gerants = new ArrayList<>();
+    }
+
+    /*public void signUpClient(){
+
+    }
+
+    public Client loginClient(){
+        
+    }
+
+    public void addManager(){
+        
+    }
+
+    public Manager getManager(){
+        
+    }
+
+    public void ajouter_compte(){
+
+    }
+
+    public void supp_compte(){
+
+    }*/
     
-    public Banque(){
-        this.liste_client_comptes = new ArrayList<Client_Comptes>();
-    }
-
-    public ArrayList<Client_Comptes> getListe_client_comptes() {
-        return liste_client_comptes;
-    }
-
-    public void setListe_client_comptes(ArrayList<Client_Comptes> liste_client_comptes) {
-        this.liste_client_comptes = liste_client_comptes;
-    }
 }
