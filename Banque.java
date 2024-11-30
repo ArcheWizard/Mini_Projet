@@ -1,4 +1,4 @@
-package Mini_Projet;
+package mini_projet;
 
 import java.util.ArrayList;
 import java.util.List;
