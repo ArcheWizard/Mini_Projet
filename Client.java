@@ -11,16 +11,18 @@ public class Client{
     private String prenom;
     private String pass;
     private List<Compte> comptes;
-    private float salaire_anuelle;
 
 
-    public Client(String nom, String prenom, String cin, float salaire_anuelle){
+    public Client(String cin, String nom, String prenom, String pass){
+        this.cin=cin;
         this.nom=nom;
         this.prenom=prenom;
-        this.pass=generer_pass(this.nom, this.prenom, this.cin);
-        this.cin=cin;
+        this.pass=pass;
         this.comptes = new ArrayList<>();
-        this.salaire_anuelle=salaire_anuelle;
+    }
+    
+    public String getCin() {
+        return cin;
     }
 
     public String getNom() {
@@ -31,8 +33,8 @@ public class Client{
         return prenom;
     }
 
-    public String getCin() {
-        return cin;
+    public String getPass() {
+        return pass;
     }
 
     public List<Compte> getComptes() {
@@ -49,8 +51,8 @@ public class Client{
         return null;
     }
 
-    public float getSalaire_anuelle() {
-        return salaire_anuelle;
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public void setNom(String nom) {
@@ -61,41 +63,8 @@ public class Client{
         this.prenom = prenom;
     }
 
-    public void setSalaire_anuelle(float salaire_anuelle) {
-        this.salaire_anuelle = salaire_anuelle;
-    }
-
-    public boolean is_client_password_valid(String pass){
-
-        if (this.pass==pass){
-            return true;
-        }
-
-        else{
-            return false;
-        }
-        
-    }
-
-    public String generer_pass(String nom, String prenom, String cin){
-
-        String pass = "";
-        Random random = new Random();
-        int rand = random.nextInt(1,5);
-        String full_id=nom+prenom+cin;
-		int Length = full_id.length();
-
-
-		for(int i=0;i<Length;i=i+rand)
-		{
-            rand = random.nextInt(1,5);
-			if(nom.charAt(i)!=' '){
-			    pass+=full_id.charAt(i);
-			}
-		}
-
-        return pass;
-
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public void demande_ajout_compte()

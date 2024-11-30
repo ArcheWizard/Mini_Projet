@@ -2,25 +2,17 @@ package Mini_Projet;
 
 public class Compte extends Client{
 
-    protected
-        String ref_compte;
-        enum membership{Bronze, Silver, Gold}
-        membership ms;
-        float balance;
+    private String ref_compte;
+    private float balance;
     
-    public Compte(String nom, String prenom, String cin, float salaire_anuelle){
-        super(nom, prenom, cin, salaire_anuelle);
+    public Compte(String cin, String nom, String prenom, String pass){
+        super(cin, nom, prenom, pass);
         this.ref_compte=generer_ref_compte(nom,prenom,cin);
-        this.ms=membership.Bronze;
         this.balance=0.0f;
     }
 
     public String getRef_compte() {
         return ref_compte;
-    }
-
-    public membership getMs() {
-        return ms;
     }
 
     public float getBalance() {
@@ -29,10 +21,6 @@ public class Compte extends Client{
 
     public void setRef_compte(String ref_compte) {
         this.ref_compte = ref_compte;
-    }
-
-    public void setMs(membership ms) {
-        this.ms = ms;
     }
 
     public void setBalance(float balance) {
@@ -84,6 +72,6 @@ public class Compte extends Client{
     }
 
     public String toString() {
-        return super.toString()+"Votre compte de reference: ("+getRef_compte()+"). Tu as une balance de: ("+getBalance()+"DT). Votre abonnement est: ("+getMs()+").";
-    }
+        return super.toString()+"Votre compte de reference: ("+getRef_compte()+")";
+    };
 }

@@ -9,13 +9,13 @@ public class Gerant {
     private String nom;
     private String prenom;
     private String pass;
-    private List<Transaction> transactions;
+    
 
-    public Gerant(String cin, String nom, String prenom){
+    public Gerant(String cin, String nom, String prenom, String pass){
         this.cin=cin;
         this.nom=nom;
         this.prenom=prenom;
-        pass=generer_pass(this.nom, this.prenom);
+        this.pass=pass;
     }
     
     public String getNom() {
@@ -30,39 +30,27 @@ public class Gerant {
         return pass;
     }
 
-    public String generer_pass(String nom, String prenom){
-
-        String pass = "";
-        Random random = new Random();
-        int rand = random.nextInt(1,5);
-        String full_name=nom+prenom;
-		int Length = full_name.length()+rand;
-
-
-		for(int i=0;i<Length;i=i+rand)
-		{
-            rand = random.nextInt(1,5);
-			if(nom.charAt(i)!=' '){
-			    pass+=full_name.charAt(i)+(char)random.nextInt(65, 122);
-			}
-		}
-
-        return pass;
-
+    public String  getcin(){
+        return cin;
     }
 
-    public boolean is_gerant_password_valid(String pass){
-
-        if (this.pass==pass){
-            return true;
-        }
-
-        else{
-            return false;
-        }
-        
+    public void setnom(String nom){
+        this.nom = nom;
     }
-    
+
+    public void setprenom(String prenom){
+        this.prenom=prenom;
+    }
+
+    public void setCin(String cin){
+        this.cin = cin;
+    }
+
+    public void setpass(String pass){
+        this.pass =pass;
+    }
+
+     
     public void consulter_comptes(Client client){
         System.out.println(client.toString());
         for (Compte compte : client.getComptes()) {
