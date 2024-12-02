@@ -92,7 +92,7 @@ public class DALClient_compte {
 
         if (connection != null) {
             
-            String query = "INSERT INTO Client VALUES(?, ?, ?, ?)";
+            String query = "INSERT INTO clients VALUES(?, ?, ?, ?)";
             
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 

@@ -87,16 +87,14 @@ public class Menu {
                                 System.out.println("-2:Exit");
                                 System.out.println("---------------------");
 
-                                int b = scanner.nextInt();
+                                a = scanner.nextInt();
 
                                 System.out.println("---------------------");
 
-                                switch(b)
+                                switch(a)
                                 {
 
                                 case 0:
-                                    
-                                    
                                     break;
                                 
                                 case 1:
@@ -116,11 +114,11 @@ public class Menu {
                             System.out.println("-2:Exit");
                             System.out.println("---------------------");
 
-                            int c = scanner.nextInt();
+                            a=scanner.nextInt();
 
                             System.out.println("---------------------");
 
-                            switch(c)
+                            switch(a)
                             {
 
                             case 0:
@@ -134,11 +132,11 @@ public class Menu {
                                     System.out.println("-2:Exit");
                                     System.out.println("---------------------");
 
-                                    int d = scanner.nextInt();
+                                    a = scanner.nextInt();
 
                                     System.out.println("---------------------");
 
-                                    switch(d){
+                                    switch(a){
 
                                         case 0:
                                             break;
