@@ -1,6 +1,5 @@
 package mini_projet;
 
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,11 @@ public class Client{
         this.prenom=prenom;
         this.pass=pass;
         this.comptes = new ArrayList<>();
+    }
+
+    public Client(String cin, String pass){
+        this.cin=cin;
+        this.pass=pass;
     }
     
     public String getCin() {

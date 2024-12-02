@@ -13,6 +13,22 @@ public class Banque{
         this.gerants = new ArrayList<>();
     }
 
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public List<Gerant> getGerants() {
+        return gerants;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
+    public void setGerants(List<Gerant> gerants) {
+        this.gerants = gerants;
+    }
+
     /*public void signUpClient(){
 
     }

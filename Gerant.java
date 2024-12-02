@@ -1,8 +1,5 @@
 package mini_projet;
 
-import java.util.List;
-import java.util.Random;
-
 public class Gerant {
 
     private String cin;
@@ -16,6 +13,15 @@ public class Gerant {
         this.nom=nom;
         this.prenom=prenom;
         this.pass=pass;
+    }
+
+    public Gerant(String cin, String pass){
+        this.cin=cin;
+        this.pass=pass;
+    }
+
+    public String getCin() {
+        return cin;
     }
     
     public String getNom() {
