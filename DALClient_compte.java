@@ -96,9 +96,9 @@ public class DALClient_compte {
             
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-                preparedStatement.setString(1, client.getNom());
-                preparedStatement.setString(2, client.getPrenom());
-                preparedStatement.setString(3, client.getCin());
+                preparedStatement.setString(1, client.getCin());
+                preparedStatement.setString(2, client.getNom());
+                preparedStatement.setString(3, client.getPrenom());
                 preparedStatement.setString(4, client.getPass());
 
                 preparedStatement.executeUpdate();
