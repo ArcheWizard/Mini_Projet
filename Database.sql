@@ -39,7 +39,6 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES ('13289171','Dadi','Fares','abcd');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,6 +90,7 @@ CREATE TABLE `gerants` (
 
 LOCK TABLES `gerants` WRITE;
 /*!40000 ALTER TABLE `gerants` DISABLE KEYS */;
+INSERT INTO `gerants` VALUES ('1','Dadi','Fares','1'),('2','Krifa','Aziz','2'),('3','Ben Fatma','Isra','3');
 /*!40000 ALTER TABLE `gerants` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,4 +130,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-03 17:54:23
+-- Dump completed on 2024-12-03 20:22:45
