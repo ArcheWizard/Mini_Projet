@@ -69,6 +69,35 @@ LOCK TABLES `comptes` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `demandes`
+--
+
+DROP TABLE IF EXISTS `demandes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `demandes` (
+  `ref_demande` varchar(50) NOT NULL,
+  `cin` varchar(50) NOT NULL,
+  `ref_compte` varchar(50) NOT NULL,
+  `type` enum('ajout','supprime') NOT NULL,
+  PRIMARY KEY (`ref_demande`),
+  KEY `cin3_idx` (`cin`),
+  KEY `ref_compte_idx` (`ref_compte`),
+  CONSTRAINT `cin3` FOREIGN KEY (`cin`) REFERENCES `clients` (`cin`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ref_compte` FOREIGN KEY (`ref_compte`) REFERENCES `comptes` (`ref_compte`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `demandes`
+--
+
+LOCK TABLES `demandes` WRITE;
+/*!40000 ALTER TABLE `demandes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `demandes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `gerants`
 --
 
@@ -103,12 +132,12 @@ DROP TABLE IF EXISTS `transactions`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `transactions` (
   `id` varchar(50) NOT NULL,
-  `cin` varchar(50) DEFAULT NULL,
-  `type` varchar(50) DEFAULT NULL,
-  `montant` double DEFAULT NULL,
+  `ref_compte` varchar(50) NOT NULL,
+  `type` enum('depot','retrait','transfer') NOT NULL,
+  `montant` double NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `cin_idx` (`cin`),
-  CONSTRAINT `cin2` FOREIGN KEY (`cin`) REFERENCES `clients` (`cin`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `ref_compte2_idx` (`ref_compte`),
+  CONSTRAINT `ref_compte2` FOREIGN KEY (`ref_compte`) REFERENCES `comptes` (`ref_compte`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -130,4 +159,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-03 20:22:45
+-- Dump completed on 2024-12-03 23:35:16

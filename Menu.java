@@ -24,7 +24,7 @@ public class Menu {
         System.out.print("Pass: ");
         String pass = scanner.next();
         Client client = new Client(cin, nom, prenom, pass);
-        DALClient_compte.addClient(client);
+        DB.addClient(client);
         System.out.println("---------------------");
         scanner.close();
     }
@@ -39,7 +39,7 @@ public class Menu {
         Client client = new Client(cin, pass);
         System.out.println("---------------------");
         scanner.close();
-        return DALClient_compte.login(client);
+        return DB.login(client);
     }
 
     public static boolean gerant_login(){
@@ -52,7 +52,7 @@ public class Menu {
         Gerant gerant = new Gerant(cin, pass);
         System.out.println("---------------------");
         scanner.close();
-        return DALClient_compte.login(gerant);
+        return DB.login(gerant);
     }
 
     public static void Main(){

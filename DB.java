@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class DALClient_compte {
+public class DB {
 
     public static boolean login(Client client) {
 
