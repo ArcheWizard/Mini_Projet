@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;*/
 
+import mini_projet.Transaction.Type_Transaction;
+
 public class Menu {
 
     public static void client_sign_up(){
@@ -24,7 +26,7 @@ public class Menu {
         System.out.print("Pass: ");
         String pass = scanner.next();
         Client client = new Client(cin, nom, prenom, pass);
-        DB.addClient(client);
+        DB.Ajout_Client(client);
         System.out.println("---------------------");
         scanner.close();
     }
@@ -39,7 +41,7 @@ public class Menu {
         Client client = new Client(cin, pass);
         System.out.println("---------------------");
         scanner.close();
-        return DB.login(client);
+        return DB.Login(client);
     }
 
     public static boolean gerant_login(){
@@ -52,7 +54,49 @@ public class Menu {
         Gerant gerant = new Gerant(cin, pass);
         System.out.println("---------------------");
         scanner.close();
-        return DB.login(gerant);
+        return DB.Login(gerant);
+    }
+
+    public static void tester_compte(Client client){
+        Compte compte = new Compte(client.getCin(), client.getNom(), client.getPrenom(), client.getPrenom());
+        DB.Ajout_Compte(compte);
+    }
+
+    public static void tester_transaction(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Reference de Transaction: ");
+        String ref_transaction = scanner.next();
+        System.out.println();
+        System.out.print("Reference de Compte: ");
+        String ref_compte = scanner.next();
+        System.out.println();
+        System.out.print("-1: Depot: ");
+        System.out.println();
+        System.out.print("-2: Retrait: ");
+        System.out.println();
+        System.out.print("-3: Transfer (Mak rajl barra 5ademha): ");
+        System.out.println();
+        Type_Transaction type_transaction=Type_Transaction.depot;
+        int choix = scanner.nextInt();
+        switch(choix){
+            case 0:
+                type_transaction=Type_Transaction.depot;
+                break;
+            case 1:
+                type_transaction=Type_Transaction.retrait;
+                break;
+            case 2:
+                System.out.println("Mzlt ched s7i7?");
+                System.out.println();
+                break;
+        }
+        System.out.println();
+        System.out.print("Montant: ");
+        double montant = scanner.nextDouble();
+        System.out.println();
+        Transaction transaction = new Transaction(ref_transaction, ref_compte, type_transaction, montant);
+        DB.Ajout_Transaction(transaction);
+        scanner.close();
     }
 
     public static void Main(){

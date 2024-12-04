@@ -6,6 +6,10 @@ public class Gerant extends Personne {
         super(cin, nom, prenom, pass);
     }
 
+    public Gerant(String cin, String pass){
+        super(cin, pass);
+    }
+
     public void consulter_comptes(Client client) {
         System.out.println(client.toString());
         for (Compte compte : client.getComptes()) {

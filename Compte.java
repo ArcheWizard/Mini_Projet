@@ -35,12 +35,12 @@ public class Compte extends Client{
 
 		for(int i=0;i<Length;i=i+5)
 		{
-			if(nom.charAt(i)!=' '){
+			if(full_name.charAt(i)!=' '){
 			    ref_compte+=full_name.charAt(i);
 			}
 		}
 
-        ref_compte+=cin.substring(-3);
+        ref_compte+=cin.substring(cin.length()-3);
 
         return ref_compte;
         

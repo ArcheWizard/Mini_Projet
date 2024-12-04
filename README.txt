@@ -53,7 +53,7 @@ Contrôle central de la banque, y compris la connectivité à la base de donnée
 Représente un gestionnaire bancaire avec des privilèges administratifs stockés dans la base de données.
 
 #### Attributs :
-- `string cin` – Identifiant unique du gestionnaire (généré automatiquement).
+- `string cin` – Identifiant unique du gestionnaire.
 - `String nom` – Nom d'utilisateur du gestionnaire.
 - `String prenom` – Prenom d'utilisateur du gestionnaire.
 - `String pass` – Mot de passe du gestionnaire.
@@ -71,7 +71,7 @@ Représente un gestionnaire bancaire avec des privilèges administratifs stocké
 Représente un client bancaire avec des comptes et des identifiants stockés dans la base de données.
 
 #### Attributs :
-- `string cin` – Identifiant unique du client (généré automatiquement).
+- `string cin` – Identifiant unique du client.
 - `String name` – Nom du client.
 - `String prenom` – Nom d'utilisateur du client.
 - `String pass` – Mot de passe du client.
@@ -97,6 +97,39 @@ Représente un compte bancaire lié à un client, avec des données stockées da
 - `void deposit(double amount)` – Ajoute de l'argent au compte dans la base de données.
 - `void withdraw(double amount)` – Retire de l'argent du compte dans la base de données.
 - `double getBalance()` – Récupère le solde depuis la base de données.
+
+---
+
+### 5. `Transaction`
+#### Objectif :
+
+<-- To_Do -->
+
+#### Attributs :
+- `string ref_transaction` – Identifiant unique du transaction (généré automatiquement).
+- `string type` – Type de transaction ('depot', 'retrait', 'transfer').
+- `double montant` – Montant de la transaction.
+
+#### Méthodes :
+
+<-- To_Do -->
+
+---
+
+### 5. `Demande`
+#### Objectif :
+
+<-- To_Do -->
+
+#### Attributs :
+- `string ref_demande` – Identifiant unique du transaction (généré automatiquement).
+- `string cin` – Identifiant unique du client.
+- `string ref_compte` – Identifiant unique du compte (généré automatiquement).
+- `string type` – Type de transaction ('ajout_client', 'supprime_client', 'ajout_compte', 'supprime_compte').
+
+#### Méthodes :
+
+<-- To_Do -->
 
 ---
 

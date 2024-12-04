@@ -12,6 +12,10 @@ public class Client extends Personne {
         this.comptes = new ArrayList<>();
     }
 
+    public Client(String cin, String pass){
+        super(cin, pass);
+    }
+
     public List<Compte> getComptes() {
         return comptes;
     }

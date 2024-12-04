@@ -8,13 +8,13 @@ import java.sql.SQLException;
 
 public class DB {
 
-    public static boolean login(Client client) {
+    public static boolean Login(Client client) {
 
     DBConnection dbConnection = new DBConnection();
     Connection connection = dbConnection.getConnection();
 
     if (connection != null) {
-        String query = "SELECT COUNT(*) FROM clients WHERE cin = ? AND password = ?";
+        String query = "SELECT COUNT(*) FROM clients WHERE cin = ? AND pass = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             
@@ -47,13 +47,13 @@ public class DB {
 
     }
 
-    public static boolean login(Gerant gerant) {
+    public static boolean Login(Gerant gerant) {
 
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
     
         if (connection != null) {
-            String query = "SELECT COUNT(*) FROM gerants WHERE cin = ? AND password = ?";
+            String query = "SELECT COUNT(*) FROM gerants WHERE cin = ? AND pass = ?";
     
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 
@@ -86,7 +86,7 @@ public class DB {
     
         }
 
-    public static void addClient(Client client) {
+    public static void Ajout_Client(Client client) {
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
 
@@ -117,18 +117,18 @@ public class DB {
         }
     }
 
-    public static void addCompte(Compte compte) {
+    public static void Ajout_Compte(Compte compte) {
 
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
 
         if (connection != null) {
 
-            String query = "INSERT INTO Compte VALUES(?, ?, ?)";
+            String query = "INSERT INTO comptes VALUES(?, ?, ?)";
             
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setString(1, compte.getCin());
-                preparedStatement.setString(2, compte.getRef_compte());
+                preparedStatement.setString(1, compte.getRef_compte());
+                preparedStatement.setString(2, compte.getCin());
                 preparedStatement.setDouble(3, compte.getBalance());
 
                 preparedStatement.executeUpdate();
@@ -146,25 +146,27 @@ public class DB {
         }
     }
 
-    public static void request_Delete_Client(String cin) {
+    public static void Ajout_Transaction(Transaction transaction) {
 
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
 
         if (connection != null) {
-            String query = "INSERT INTO Demande VALUES(?)";
 
+            String query = "INSERT INTO transactions VALUES(?, ?, ?, ?)";
+            
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                
-                preparedStatement.setString(1, cin);
+                preparedStatement.setString(1, transaction.getRef_transaction());
+                preparedStatement.setString(2, transaction.getRef_compte());
+                preparedStatement.setString(3, transaction.getType_transaction());
+                preparedStatement.setDouble(4, transaction.getMontant());
 
                 preparedStatement.executeUpdate();
-                System.out.println("Your request has been sent.");
-
+                System.out.println("A new compte has been added.");
             } 
-            
+
             catch (SQLException e) {
-                System.out.println("Error while sending request: " + e.getMessage());
+                System.out.println("Error while adding compte: " + e.getMessage());
             } 
             
             finally {
@@ -173,18 +175,21 @@ public class DB {
 
         }
     }
-
-    public static void requestDeleteCompte(String ref) {
+     
+    public static void Ajout_Demande(Demande demande) {
 
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
 
         if (connection != null) {
 
-            String query = "INSERT INTO Demande VALUES(?)";
+            String query = "INSERT INTO demandes VALUES(?)";
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setString(1, ref);
+                preparedStatement.setString(1, demande.getRef_demande());
+                preparedStatement.setString(2, demande.getCin());
+                preparedStatement.setString(3, demande.getRef_compte());
+                preparedStatement.setString(4, demande.getType_demande());
 
                 int rowsAffected = preparedStatement.executeUpdate();
 
@@ -193,13 +198,13 @@ public class DB {
                 } 
                 
                 else {
-                    System.out.println("No compte found with ref " + ref);
+                    System.out.println("The data you put in is not valid!");
                 }
 
             } 
             
             catch (SQLException e) {
-                System.out.println("Error while deleting compte: " + e.getMessage());
+                System.out.println("An error has happend while completing your request: " + e.getMessage());
             } 
             
             finally {
@@ -208,4 +213,5 @@ public class DB {
 
         }
     }
+    
 }
