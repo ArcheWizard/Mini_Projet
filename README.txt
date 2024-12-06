@@ -1,5 +1,5 @@
 
-!!! Hadha chatgpt ch5damli, ama mouch kol chy s7i7, e7sbouh guide bsh y3awenna ntfahmou fl 5edma :^)
+!!! illi y9ra fl msg, rake7 il method main fl class Menu ysla7 rayek :^)
 
 # Système de Gestion Bancaire avec Intégration de Base de Données
 
@@ -116,7 +116,7 @@ Représente un compte bancaire lié à un client, avec des données stockées da
 
 ---
 
-### 5. `Demande`
+### 6. `Demande`
 #### Objectif :
 
 <-- To_Do -->
@@ -133,10 +133,57 @@ Représente un compte bancaire lié à un client, avec des données stockées da
 
 ---
 
+### 7. `DBConnection`
+#### Objectif :
+
+<-- To_Do -->
+
+#### Attributs :
+
+- `Connection connection` – <-- To_Do -->
+- `string url` – <-- To_Do -->
+- `string user` – <-- To_Do -->
+- `string password` – <-- To_Do -->
+
+#### Méthodes :
+
+<-- To_Do -->
+
+---
+
+### 8. `DB`
+#### Objectif :
+
+<-- To_Do -->
+
+#### Méthodes :
+
+<-- To_Do -->
+
+---
+
+### 9. `Menu`
+#### Objectif :
+
+<-- To_Do -->
+
+#### Méthodes :
+
+<-- To_Do -->
+
+---
+
+### 10. `Program`
+#### Objectif :
+
+<-- To_Do -->
+
+---
+
 ## Schéma de la Base de Données
 
 ### Tables
-1. **gerant**
+1. **gerants**
    - `cin` (Clé Primaire)
    - `nom`
    - `prenom`
@@ -173,16 +220,16 @@ Représente un compte bancaire lié à un client, avec des données stockées da
 ```
 mini_projet/
 |
-├── DBConnection.java     # Gère la connectivité de la base de données.
-├── DBConnection.java     # Gère les requêtes de la base de données.
-├── Bank.java             # Classe principale représentant la banque.
-├── Manager.java          # Classe pour les gestionnaires.
+├── Banque.java           # Classe principale représentant la banque.
+├── Gerant.java           # Classe pour les gestionnaires.
 ├── Client.java           # Classe pour les clients.
-├── Account.java          # Classe pour les comptes des clients.
-├── LoginScreen.java      # Interface de connexion pour les clients et gestionnaires.
-├── ManagerDashboard.java # Tableau de bord pour les gestionnaires.
-├── ClientDashboard.java  # Tableau de bord pour les clients.
-└── Program.java                 # Point d'entrée de l'application.
+├── Compte.java           # Classe pour les comptes des clients.
+├── Transaction.java      # Classe pour les transactions des clients.
+├── Demandes.java         # Classe pour les demandes des clients.
+├── DBConnection.java     # Gère la connectivité de la base de données.
+├── DB.java               # Gère les requêtes de la base de données.
+├── Menu.java             # Menu d'application en terminal.
+└── Program.java          # Point d'entrée de l'application.
 ```
 
 ---

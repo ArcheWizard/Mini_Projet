@@ -34,6 +34,15 @@ CREATE TABLE `clients` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `clients`
+--
+
+LOCK TABLES `clients` WRITE;
+/*!40000 ALTER TABLE `clients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `clients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `comptes`
 --
 
@@ -46,9 +55,18 @@ CREATE TABLE `comptes` (
   `balance` double DEFAULT NULL,
   PRIMARY KEY (`ref_compte`),
   KEY `cin_idx` (`cin`),
-  CONSTRAINT `cin` FOREIGN KEY (`cin`) REFERENCES `clients` (`cin`)
+  CONSTRAINT `cin` FOREIGN KEY (`cin`) REFERENCES `clients` (`cin`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comptes`
+--
+
+LOCK TABLES `comptes` WRITE;
+/*!40000 ALTER TABLE `comptes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comptes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `demandes`
@@ -71,6 +89,15 @@ CREATE TABLE `demandes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `demandes`
+--
+
+LOCK TABLES `demandes` WRITE;
+/*!40000 ALTER TABLE `demandes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `demandes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `gerants`
 --
 
@@ -85,6 +112,16 @@ CREATE TABLE `gerants` (
   PRIMARY KEY (`cin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gerants`
+--
+
+LOCK TABLES `gerants` WRITE;
+/*!40000 ALTER TABLE `gerants` DISABLE KEYS */;
+INSERT INTO `gerants` VALUES ('1','Dadi','Fares','1'),('2','Krifa','Aziz','2'),('3','Ben Fatma','Isra','3');
+/*!40000 ALTER TABLE `gerants` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `transactions`
@@ -103,6 +140,15 @@ CREATE TABLE `transactions` (
   CONSTRAINT `ref_compte2` FOREIGN KEY (`ref_compte`) REFERENCES `comptes` (`ref_compte`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transactions`
+--
+
+LOCK TABLES `transactions` WRITE;
+/*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -113,4 +159,4 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-04 14:56:53
+-- Dump completed on 2024-12-06 13:56:55
