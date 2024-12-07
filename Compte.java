@@ -1,21 +1,22 @@
 package mini_projet;
 
-public class Compte extends Client{
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-    private static int compteur=0;
+public class Compte{
+
     private String ref_compte;
     private double balance;
     
-    public Compte(String cin, String nom, String prenom, String pass){
-        super(cin, nom, prenom, pass);
-        this.ref_compte=generer_ref_compte(nom,prenom,cin);
+    public Compte(Client client){
+        this.ref_compte=generer_ref_compte(client.getNom(),client.getPrenom(),client.getCin());
         this.balance=0.0f;
     }
-
-    public Compte(Client client, float balance){
-        super(client.getCin(), client.getPass());
-        this.ref_compte=generer_ref_compte(client.getNom(),client.getPrenom(),client.getCin());
-        this.balance=balance;
+    
+    public Compte(String cin, String nom, String prenom, String pass){
+        this.ref_compte=generer_ref_compte(nom,prenom,cin);
+        this.balance=0.0f;
     }
 
     public String getRef_compte() {
@@ -47,11 +48,7 @@ public class Compte extends Client{
 			}
 		}
 
-        String scompteur = compteur+"";
-
-        ref_compte=ref_compte+scompteur;
-
-        compteur+=1;
+        ref_compte+=cin.substring(cin.length()-3);
 
         return ref_compte;
         
@@ -59,7 +56,8 @@ public class Compte extends Client{
 
     public void depot(double montant){
         if (montant > 0) {
-            this.balance += montant;
+            this.balance = this.balance + montant;
+            System.out.println("Deposit is successful.");
         } else {
             System.out.println("Invalid deposit montant!");
         }
@@ -67,7 +65,8 @@ public class Compte extends Client{
 
     public void retrait(double montant){
         if (montant > 0 && montant <= balance) {
-            this.balance -= montant;
+            this.balance = this.balance - montant;
+            System.out.println("Withdrawal is successful.");
         } else {
             System.out.println("Invalid withdrawal montant!");
         }
@@ -82,6 +81,80 @@ public class Compte extends Client{
         }
     }
 
+    public static void Depot(Compte compte, double montant){
+
+        DBConnection dbConnection = new DBConnection();
+        Connection connection = dbConnection.getConnection();
+
+        if (connection != null) {
+
+            String query = "UPDATE comptes SET balance = ? WHERE (ref_compte = ?)";
+            
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                System.out.println(compte.getRef_compte());
+
+                compte.depot(montant);
+    
+                preparedStatement.setDouble(1, compte.getBalance());
+                preparedStatement.setString(2, compte.getRef_compte());
+
+                preparedStatement.executeUpdate();
+    
+            } 
+
+            catch (SQLException e) {
+                System.out.println("Error while depositing: " + e.getMessage());
+            } 
+            
+            finally {
+                dbConnection.closeConnection();
+            }
+
+        }
+
+    }
+
+    public static void Retrait(Compte compte, double montant){
+
+        DBConnection dbConnection = new DBConnection();
+        Connection connection = dbConnection.getConnection();
+
+        if (connection != null) {
+
+            String query = "UPDATE comptes SET balance = ? WHERE ref_compte = ?";
+            
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                compte.retrait(montant);
+    
+                preparedStatement.setDouble(1, compte.getBalance());
+                preparedStatement.setString(2, compte.getRef_compte());
+
+                preparedStatement.executeUpdate();
+                
+            } 
+
+            catch (SQLException e) {
+                System.out.println("Error while depositing: " + e.getMessage());
+            } 
+            
+            finally {
+                dbConnection.closeConnection();
+            }
+
+        }
+        
+    }
+
+    public static void Transferer(Client client_sender, Client client_receiver, double montant){
+        Retrait(Banque.get_Compte(client_sender), montant);
+        System.out.println("Money sent successfully!");
+        Depot(Banque.get_Compte(client_receiver), montant);
+        System.out.println("Money received successfully!");
+        System.out.println("Transaction to "+client_receiver.toString()+"Was finished successfully!");
+    }
+    
     public String toString() {
         return super.toString()+"Votre compte de reference: ("+getRef_compte()+")";
     };

@@ -1,5 +1,5 @@
 
-!!! illi y9ra fl msg, rake7 il method main fl class Menu ysla7 rayek :^)
+!!! gerant wl client wl compte ye5dmou, ma na9es kn transaction twa!
 
 # Système de Gestion Bancaire avec Intégration de Base de Données
 
@@ -36,39 +36,26 @@ Le système utilise une base de données relationnelle pour stocker et récupér
 Contrôle central de la banque, y compris la connectivité à la base de données et les opérations de haut niveau.
 
 #### Attributs :
-- `String name` – Le nom de la banque.
-- `Connection dbConnection` – Connexion à la base de données.
+<- To Do ->
 
 #### Méthodes :
-- `void connectDatabase(String dbURL, String username, String password)` – Établit la connexion à la base de données.
-- `void addClient(Client client)` – Insère un nouveau client dans la base de données.
-- `void addManager(Manager manager)` – Insère un nouveau gestionnaire dans la base de données.
-- `Client authenticateClient(String username, String password)` – Vérifie les identifiants du client dans la base de données.
-- `Manager authenticateManager(String username, String password)` – Vérifie les identifiants du gestionnaire dans la base de données.
+- `public static boolean Login(Client client)` – 
+- `public static Client get_Client(Client client)` – 
+- `public static Client get_Client(String cin)` – 
+- `public static Compte get_Compte(Client client)` – 
+- `public static boolean Login(Gerant gerant)` – 
+- `public static Gerant get_Gerant(Gerant gerant)` – 
+- `public static void Ajout_Client(Client client)` –
+- `public static void Ajout_Transaction(Transaction transaction)` –
+- `public static void Ajout_Demande(Demande demande)` –
+- `public static void Supprimer_Transaction(Transaction transaction)` –
+- `public static void Supprimer_Demande(Demande demande)` –
 
 ---
 
-### 2. `Gerant`
+### 2. 'Personne'
 #### Objectif :
-Représente un gestionnaire bancaire avec des privilèges administratifs stockés dans la base de données.
-
-#### Attributs :
-- `string cin` – Identifiant unique du gestionnaire.
-- `String nom` – Nom d'utilisateur du gestionnaire.
-- `String prenom` – Prenom d'utilisateur du gestionnaire.
-- `String pass` – Mot de passe du gestionnaire.
-
-#### Méthodes :
-- `void createAccount(Client client, double initialDeposit)` – Insère un nouveau compte pour un client dans la base de données.
-- `void deleteAccount(int accountId)` – Supprime un compte de la base de données.
-- `void updateClientDetails(Client client)` – Met à jour les informations du client dans la base de données.
-- `ResultSet viewClientAccounts(int clientId)` – Récupère tous les comptes appartenant à un client.
-
----
-
-### 3. `Client`
-#### Objectif :
-Représente un client bancaire avec des comptes et des identifiants stockés dans la base de données.
+<- To Do ->
 
 #### Attributs :
 - `string cin` – Identifiant unique du client.
@@ -77,10 +64,38 @@ Représente un client bancaire avec des comptes et des identifiants stockés dan
 - `String pass` – Mot de passe du client.
 
 #### Méthodes :
-- `void deposit(double amount, int accountId)` – Met à jour le solde du compte dans la base de données.
-- `void withdraw(double amount, int accountId)` – Déduit le montant spécifié du solde dans la base de données.
-- `double checkBalance(int accountId)` – Récupère le solde du compte dans la base de données.
-- `ResultSet viewTransactionHistory(int accountId)` – Récupère l'historique des transactions du compte.
+<- To Do ->
+
+---
+
+### 2. `Gerant` extends 'Personne'
+#### Objectif :
+Représente un gestionnaire bancaire avec des privilèges administratifs stockés dans la base de données.
+
+#### Attributs :
+<- N/A ->
+
+#### Méthodes :
+- `public static void Consulter_Clients()` – 
+- `public static void Consulter_Client(String cin)` – 
+- `public static void Consulter_Comptes()` – 
+- `public static void Consulter_Compte(String ref_compte)` – 
+- `public static void Supprimer_Client(Client client)` – 
+
+
+---
+
+### 3. `Client` extends 'Personne'
+#### Objectif :
+Représente un client bancaire avec des comptes et des identifiants stockés dans la base de données.
+
+#### Attributs :
+- `Compte compte` – Représente un compte bancaire
+
+#### Méthodes :
+- `public static void Consulter_Compte_Client(Client client)` – 
+- `public static void Ajout_Compte(Client client)` – 
+- `XXXXXXX` – 
 
 ---
 
@@ -91,18 +106,20 @@ Représente un compte bancaire lié à un client, avec des données stockées da
 #### Attributs :
 - `string ref_compte` – Identifiant unique du compte (généré automatiquement).
 - `double balance` – Solde actuel du compte.
-- `string cin` – Identifiant du client propriétaire du compte.
 
 #### Méthodes :
-- `void deposit(double amount)` – Ajoute de l'argent au compte dans la base de données.
-- `void withdraw(double amount)` – Retire de l'argent du compte dans la base de données.
-- `double getBalance()` – Récupère le solde depuis la base de données.
+- `public String generer_ref_compte(String nom, String prenom, String cin)` – 
+- `public void depot(double montant)` – 
+- `public void retrait(double montant)` – 
+- `public void transfer(Compte compte, double montant)` – 
+- `public static void Depot(Compte compte, double montant)` – 
+- `public static void Retrait(Compte compte, double montant)` – 
+- `public static void Transferer(Client client_sender, Client client_receiver, double montant)` – 
 
 ---
 
 ### 5. `Transaction`
 #### Objectif :
-
 <-- To_Do -->
 
 #### Attributs :
@@ -111,14 +128,12 @@ Représente un compte bancaire lié à un client, avec des données stockées da
 - `double montant` – Montant de la transaction.
 
 #### Méthodes :
-
 <-- To_Do -->
 
 ---
 
 ### 6. `Demande`
 #### Objectif :
-
 <-- To_Do -->
 
 #### Attributs :
@@ -221,15 +236,18 @@ Représente un compte bancaire lié à un client, avec des données stockées da
 mini_projet/
 |
 ├── Banque.java           # Classe principale représentant la banque.
-├── Gerant.java           # Classe pour les gestionnaires.
 ├── Client.java           # Classe pour les clients.
 ├── Compte.java           # Classe pour les comptes des clients.
-├── Transaction.java      # Classe pour les transactions des clients.
-├── Demandes.java         # Classe pour les demandes des clients.
-├── DBConnection.java     # Gère la connectivité de la base de données.
 ├── DB.java               # Gère les requêtes de la base de données.
+├── DBConnection.java     # Gère la connectivité de la base de données.
+├── Demandes.java         # Classe pour les demandes des clients.
+├── Gerant.java           # Classe pour les gestionnaires.
 ├── Menu.java             # Menu d'application en terminal.
-└── Program.java          # Point d'entrée de l'application.
+├── Personne.java         # Classe pour les personnes.
+├── Program.java          # Point d'entrée de l'application.
+├── Transaction.java      # Classe pour les transactions des clients.
+├── Database.sql          # La base de données.
+└── README.txt            # Ce fichier.
 ```
 
 ---

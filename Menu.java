@@ -51,6 +51,7 @@ public class Menu {
     }
 
     public static void Main() {
+
         boolean bank_status = true;
 
         while (bank_status) {
@@ -67,13 +68,16 @@ public class Menu {
                 switch (choice1) {
                     case 1:
                         Gerant gerant = Menu.gerant_login_menu();
-                        boolean gerant_status = DB.Login(gerant);
+                        boolean gerant_status = Banque.Login(gerant);
 
                         while (gerant_status) {
                             System.out.println("Please choose an option:");
                             System.out.println("1. Afficher tous les clients");
                             System.out.println("2. Afficher tous les comptes");
-                            System.out.println("3. Log out");
+                            System.out.println("3. Afficher un client");
+                            System.out.println("4. Afficher une compte");
+                            System.out.println("5. Supprimer un compte");
+                            System.out.println("6. Log out");
 
                             System.out.print("Enter your choice: ");
 
@@ -82,12 +86,31 @@ public class Menu {
 
                                 switch (choice2) {
                                     case 1:
-                                        DB.Consulter_Clients();
+                                        Gerant.Consulter_Clients();
                                         break;
                                     case 2:
-                                        DB.Consulter_Comptes();
+                                        Gerant.Consulter_Comptes();
                                         break;
                                     case 3:
+                                        System.out.println("Which client do you want to check?");
+                                        System.out.print("CIN: ");
+                                        String cin = scanner.next();
+                                        Gerant.Consulter_Client(cin);
+                                        break;
+                                    case 4:
+                                        System.out.println("Which account do you want to check?");
+                                        System.out.print("Account reference: ");
+                                        String ref_compte = scanner.next();
+                                        Gerant.Consulter_Compte(ref_compte);
+                                        break;
+                                    case 5:
+                                        System.out.println("Which client do you want to check?");
+                                        System.out.print("CIN: ");
+                                        cin = scanner.next();
+                                        Client client = Banque.get_Client(cin);
+                                        Gerant.Supprimer_Client(client);
+                                        break;
+                                    case 6:
                                         System.out.println("Logging out. Goodbye!");
                                         gerant_status = false;
                                         break;
@@ -117,23 +140,25 @@ public class Menu {
                             switch (choice3) {
                                 case 1:
                                     client = Menu.client_login_menu();
-                                    boolean client_status = DB.Login(client);
+                                    boolean client_status = Banque.Login(client);
 
                                     while (client_status) {
 
                                         System.out.println("Login Successful!");
 
-                                        client = DB.get_Client(client);
+                                        client = Banque.get_Client(client);
 
-                                        if(DB.get_Compte(client) != null){
+                                        if(Banque.get_Compte(client) != null){
 
-                                            Compte compte = DB.get_Compte(client);
+                                            Compte compte = Banque.get_Compte(client);
 
                                             System.out.println("Please choose an option:");
                                             System.out.println("1. Afficher compte");
                                             System.out.println("2. Depot");
                                             System.out.println("3. Retrait");
-                                            System.out.println("4. Log out");
+                                            System.out.println("4. Transfer");
+                                            System.out.println("5. Supprimer compte");
+                                            System.out.println("6. Log out");
 
                                             System.out.print("Enter your choice: ");
 
@@ -142,25 +167,50 @@ public class Menu {
 
                                                 switch (choice2) {
                                                     case 1:
-                                                        DB.Consulter_Comptes_Client(client);
+                                                        Client.Consulter_Compte_Client(client);
                                                         break;
                                                     case 2:
                                                         System.out.println("Reference de compte: "+compte.getRef_compte());
-                                                        System.out.println("How much money do you wanna deposit?: ");
+                                                        System.out.print("How much money do you wanna deposit?: ");
                                                         double montant = scanner.nextDouble();
-                                                        DB.Depot(compte,montant);
-
+                                                        Compte.Depot(compte,montant);
+                                                        compte = Banque.get_Compte(client);
                                                         break;
                                                     case 3:
                                                         System.out.println("Reference de compte: "+compte.getRef_compte());
                                                         System.out.println("How much money do you wanna withdraw?: ");
                                                         montant = scanner.nextFloat();
-                                                        DB.Retrait(compte,montant);
+                                                        Compte.Retrait(compte,montant);
+                                                        compte = Banque.get_Compte(client);
                                                         break;
+                                                    
                                                     case 4:
+                                                        System.out.println("To which client do you want to send to?");
+                                                        System.out.print("CIN: ");
+                                                        String cin = scanner.next();
+                                                        Client client_receiver = Banque.get_Client(cin);
+                                                        System.out.print("How much money do you wanna send?: ");
+                                                        montant = scanner.nextDouble();
+                                                        Compte.Transferer(client, client_receiver, montant);
+                                                        compte = Banque.get_Compte(client);
+                                                        break;
+                                                    
+                                                    case 5:
+                                                        compte = Banque.get_Compte(client);
+                                                        if(compte.getBalance()==0){
+                                                            Client.Supprimer_Compte(compte);
+                                                        }
+                                                        else{
+                                                            System.out.println("Sorry, your account still has a balance, you should withdraw or transfer it all before deleting it");
+
+                                                        }
+                                                        break;
+                                                    
+                                                    case 6:
                                                         System.out.println("Exiting the program. Goodbye!");
                                                         client_status = false;
                                                         break;
+
                                                     default:
                                                         System.out.println("Invalid option. Please enter 1, 2, 3 or 4.");
                                                     
@@ -190,8 +240,7 @@ public class Menu {
 
                                                 switch (choice2) {
                                                     case 1:
-                                                        Compte compte = new Compte(client.getCin(), client.getNom(), client.getPrenom(), client.getPass());
-                                                        DB.Ajout_Compte(compte);
+                                                        Client.Ajout_Compte(client);
                                                         break;
                                                     case 2:
                                                         System.out.println("Logging out. Goodbye "+client.getPrenom()+"!");
@@ -218,7 +267,7 @@ public class Menu {
 
                                 case 2:
                                     client = Menu.client_sign_up_menu();
-                                    DB.Ajout_Client(client);
+                                    Banque.Ajout_Client(client);
                                     break;
 
                                 case 3:
