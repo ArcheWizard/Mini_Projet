@@ -5,45 +5,43 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 public class DALClient_compte {
 
     public static boolean login(Client client) {
 
-    DBConnection dbConnection = new DBConnection();
-    Connection connection = dbConnection.getConnection();
+        DBConnection dbConnection = new DBConnection();
+        Connection connection = dbConnection.getConnection();
 
-    if (connection != null) {
-        String query = "SELECT COUNT(*) FROM clients WHERE cin = ? AND password = ?";
+        if (connection != null) {
+            String query = "SELECT COUNT(*) FROM clients WHERE cin = ? AND password = ?";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            
-            preparedStatement.setString(1, client.getCin());
-            preparedStatement.setString(2, client.getPass());
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                preparedStatement.setString(1, client.getCin());
+                preparedStatement.setString(2, client.getPass());
 
-                if (resultSet.next()) {
-                    int count = resultSet.getInt(1);
-                    return count > 0;
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                    if (resultSet.next()) {
+                        int count = resultSet.getInt(1);
+                        return count > 0;
+                    }
+
                 }
 
             }
 
-        } 
+            catch (SQLException e) {
+                System.out.println("Error during login: " + e.getMessage());
+            }
 
-        catch (SQLException e) {
-            System.out.println("Error during login: " + e.getMessage());
+            finally {
+                dbConnection.closeConnection();
+            }
+
         }
 
-        finally {
-            dbConnection.closeConnection();
-        }
-
-      } 
-      
-      return false;
+        return false;
 
     }
 
@@ -51,49 +49,48 @@ public class DALClient_compte {
 
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
-    
+
         if (connection != null) {
             String query = "SELECT COUNT(*) FROM gerants WHERE cin = ? AND password = ?";
-    
+
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                
+
                 preparedStatement.setString(1, gerant.getCin());
                 preparedStatement.setString(2, gerant.getPass());
-    
-                
+
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-    
+
                     if (resultSet.next()) {
                         int count = resultSet.getInt(1);
                         return count > 0;
                     }
-    
+
                 }
-    
-            } 
-    
+
+            }
+
             catch (SQLException e) {
                 System.out.println("Error during login: " + e.getMessage());
             }
-    
+
             finally {
                 dbConnection.closeConnection();
             }
-    
-          } 
-          
-          return false;
-    
+
         }
+
+        return false;
+
+    }
 
     public static void addClient(Client client) {
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
 
         if (connection != null) {
-            
+
             String query = "INSERT INTO clients VALUES(?, ?, ?, ?)";
-            
+
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
                 preparedStatement.setString(1, client.getCin());
@@ -104,15 +101,15 @@ public class DALClient_compte {
                 preparedStatement.executeUpdate();
                 System.out.println("A new client has been added.");
 
-                } 
+            }
 
-            catch (SQLException e){
+            catch (SQLException e) {
                 System.out.println("Error while adding client: " + e.getMessage());
-                } 
-            
-            finally{
+            }
+
+            finally {
                 dbConnection.closeConnection();
-                }   
+            }
 
         }
     }
@@ -125,7 +122,7 @@ public class DALClient_compte {
         if (connection != null) {
 
             String query = "INSERT INTO Compte VALUES(?, ?, ?)";
-            
+
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.setString(1, compte.getCin());
                 preparedStatement.setString(2, compte.getRef_compte());
@@ -133,12 +130,12 @@ public class DALClient_compte {
 
                 preparedStatement.executeUpdate();
                 System.out.println("A new compte has been added.");
-            } 
+            }
 
             catch (SQLException e) {
                 System.out.println("Error while adding compte: " + e.getMessage());
-            } 
-            
+            }
+
             finally {
                 dbConnection.closeConnection();
             }
@@ -155,18 +152,18 @@ public class DALClient_compte {
             String query = "INSERT INTO Demande VALUES(?)";
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                
+
                 preparedStatement.setString(1, cin);
 
                 preparedStatement.executeUpdate();
                 System.out.println("Your request has been sent.");
 
-            } 
-            
+            }
+
             catch (SQLException e) {
                 System.out.println("Error while sending request: " + e.getMessage());
-            } 
-            
+            }
+
             finally {
                 dbConnection.closeConnection();
             }
@@ -190,18 +187,18 @@ public class DALClient_compte {
 
                 if (rowsAffected > 0) {
                     System.out.println("Your request has been sent ");
-                } 
-                
+                }
+
                 else {
                     System.out.println("No compte found with ref " + ref);
                 }
 
-            } 
-            
+            }
+
             catch (SQLException e) {
                 System.out.println("Error while deleting compte: " + e.getMessage());
-            } 
-            
+            }
+
             finally {
                 dbConnection.closeConnection();
             }
