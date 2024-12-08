@@ -11,12 +11,16 @@ public class Transaction{
     private Type_Transaction type_transaction;
     private double montant;
 
-    public Transaction(String ref_transaction, String ref_compte, Type_Transaction type_transaction, double montant) {
-        this.ref_transaction = ref_transaction;
+    public Transaction(String ref_compte, Type_Transaction type_transaction, double montant) {
         this.ref_compte = ref_compte;
         this.type_transaction = type_transaction;
         this.montant = montant;
     }
+
+    public Transaction(String ref_transaction) {
+        this.ref_transaction=ref_transaction;
+    }
+
 
     public String getRef_transaction() {
         return ref_transaction;
