@@ -328,7 +328,7 @@ public class Banque{
                 preparedStatement.setDouble(4, transaction.getMontant());
 
                 preparedStatement.executeUpdate();
-                System.out.println("A new compte has been added.");
+                System.out.println("Transaction has been added.");
             } 
 
             catch (SQLException e) {

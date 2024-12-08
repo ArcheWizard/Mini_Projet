@@ -2,6 +2,8 @@ package mini_projet;
 
 import java.util.Scanner;
 
+import mini_projet.Transaction.Type_Transaction;
+
 /* Database Import
 import java.sql.*;
 Graphical Interface Import 
@@ -175,13 +177,17 @@ public class Menu {
                                                         double montant = scanner.nextDouble();
                                                         Compte.Depot(compte,montant);
                                                         compte = Banque.get_Compte(client);
+                                                        Transaction transaction = new Transaction(compte.getRef_compte(), Type_Transaction.depot, montant);
+                                                        Banque.Ajout_Transaction(transaction);
                                                         break;
                                                     case 3:
                                                         System.out.println("Reference de compte: "+compte.getRef_compte());
-                                                        System.out.println("How much money do you wanna withdraw?: ");
+                                                        System.out.print("How much money do you wanna withdraw?: ");
                                                         montant = scanner.nextFloat();
                                                         Compte.Retrait(compte,montant);
                                                         compte = Banque.get_Compte(client);
+                                                        transaction = new Transaction(compte.getRef_compte(), Type_Transaction.retrait, montant);
+                                                        Banque.Ajout_Transaction(transaction);
                                                         break;
                                                     
                                                     case 4:
@@ -193,6 +199,8 @@ public class Menu {
                                                         montant = scanner.nextDouble();
                                                         Compte.Transferer(client, client_receiver, montant);
                                                         compte = Banque.get_Compte(client);
+                                                        transaction = new Transaction(compte.getRef_compte(), Type_Transaction.transfer, montant);
+                                                        Banque.Ajout_Transaction(transaction);
                                                         break;
                                                     
                                                     case 5:

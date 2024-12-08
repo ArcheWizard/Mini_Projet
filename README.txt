@@ -1,5 +1,5 @@
 
-!!! gerant wl client wl compte ye5dmou, ma na9es kn transaction twa!
+!!! fazet demande sayeb 3lina mnha, gerant wl client wl compte wl transaction ye5dmou twa, w ma na9es kn interface!
 
 # Système de Gestion Bancaire avec Intégration de Base de Données
 
