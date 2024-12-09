@@ -16,10 +16,14 @@ public class Gerant extends Personne implements Loginable {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static String Consulter_Clients(){
 =======
     public static void Consulter_Clients() {
 >>>>>>> 70083e372cafc30d8f74b60d889da1230f0675d8
+=======
+    public static String Consulter_Clients(){
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
         String allClients="";
@@ -29,11 +33,14 @@ public class Gerant extends Personne implements Loginable {
             
             String query = "SELECT cin FROM clients";
             
+<<<<<<< HEAD
 =======
 
             String query = "SELECT * FROM clients";
 
 >>>>>>> 70083e372cafc30d8f74b60d889da1230f0675d8
+=======
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -42,6 +49,7 @@ public class Gerant extends Personne implements Loginable {
 
                     String cin = resultSet.getString(1);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
                     allClients += Consulter_Client(cin);
                     
@@ -67,6 +75,10 @@ public class Gerant extends Personne implements Loginable {
                     System.out.println("---------------------");
 
 >>>>>>> 70083e372cafc30d8f74b60d889da1230f0675d8
+=======
+                    allClients += Consulter_Client(cin);
+                    
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
                 }
 
                 return allClients;
@@ -87,10 +99,14 @@ public class Gerant extends Personne implements Loginable {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static String Consulter_Client(String cin){
 =======
     public static void Consulter_Client(String cin) {
 >>>>>>> 70083e372cafc30d8f74b60d889da1230f0675d8
+=======
+    public static String Consulter_Client(String cin){
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
         String CH="";
@@ -118,6 +134,9 @@ public class Gerant extends Personne implements Loginable {
                     client = Banque.get_Client(client);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
                     Compte compte = Banque.get_Compte(client);
 
                     CH=client.toString();
@@ -125,6 +144,7 @@ public class Gerant extends Personne implements Loginable {
                     if(compte != null){
                         CH+=compte.toString();
                     }
+<<<<<<< HEAD
 
                     return CH;
                     
@@ -140,6 +160,11 @@ public class Gerant extends Personne implements Loginable {
                     System.out.println("---------------------");
 
 >>>>>>> 70083e372cafc30d8f74b60d889da1230f0675d8
+=======
+
+                    return CH;
+                    
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
                 }
 
                 System.out.println("Printing is successful!");
@@ -161,10 +186,13 @@ public class Gerant extends Personne implements Loginable {
 <<<<<<< HEAD
     
     public static String Consulter_Comptes(){
+<<<<<<< HEAD
 =======
 
     public static void Consulter_Comptes() {
 >>>>>>> 70083e372cafc30d8f74b60d889da1230f0675d8
+=======
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
         String allComptes="";
@@ -188,6 +216,9 @@ public class Gerant extends Personne implements Loginable {
                     Compte compte = Banque.get_Compte(client);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
                     if(compte != null){
                         allComptes += Consulter_Compte(ref_compte);
                     }
@@ -222,10 +253,14 @@ public class Gerant extends Personne implements Loginable {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static String Consulter_Compte(String ref_compte){
 =======
     public static void Consulter_Compte(String ref_compte) {
 >>>>>>> 70083e372cafc30d8f74b60d889da1230f0675d8
+=======
+    public static String Consulter_Compte(String ref_compte){
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
 
@@ -248,6 +283,9 @@ public class Gerant extends Personne implements Loginable {
                     Compte compte = Banque.get_Compte(client);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 33994e0 (#16 Beta 1.2 (Implemented Interface))
                     if(compte != null){
                         return compte.toString();
                     }
