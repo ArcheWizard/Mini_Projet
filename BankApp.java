@@ -166,7 +166,7 @@ public class BankApp extends JFrame {
         panel.add(viewAccountsButton);
 
         JButton viewClientButton = new JButton("Afficher un client");
-        viewAccountsButton.setFont(new Font("Arial", Font.BOLD, 16));
+        viewClientButton.setFont(new Font("Arial", Font.BOLD, 16));
         viewClientButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "mizzllll"));
         panel.add(viewClientButton);
 
