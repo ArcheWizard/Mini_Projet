@@ -12,7 +12,7 @@ public class Interface {
     private static JPanel mainPanel;
     private static CardLayout cardLayout;
 
-    public static void main() {
+    public static void main(String[] args) {
         setupMainFrame();
         showMainMenu();
     }
@@ -33,11 +33,14 @@ public class Interface {
     private static void showMainMenu() {
         JPanel menuPanel = new JPanel(new GridLayout(4, 1, 10, 10));
         JLabel welcomeLabel = new JLabel("Welcome to the Bank System", JLabel.CENTER);
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
         JButton gerantButton = new JButton("Gerant Login");
+        gerantButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton clientButton = new JButton("Client Options");
+        clientButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton exitButton = new JButton("Exit");
+        exitButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         gerantButton.addActionListener(e -> showGerantLogin());
         clientButton.addActionListener(e -> showClientMenu());
@@ -56,12 +59,18 @@ public class Interface {
     private static void showGerantLogin() {
         JPanel loginPanel = new JPanel(new GridLayout(4, 2, 10, 10));
         JLabel cinLabel = new JLabel("CIN:");
+        cinLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JTextField cinField = new JTextField();
+        cinField.setFont(new Font("Arial", Font.BOLD, 16));
         JLabel passLabel = new JLabel("Password:");
+        passLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JPasswordField passField = new JPasswordField();
+        passField.setFont(new Font("Arial", Font.BOLD, 16));
 
         JButton loginButton = new JButton("Login");
+        loginButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         loginButton.addActionListener(e -> {
             String cin = cinField.getText();
@@ -94,11 +103,17 @@ public class Interface {
         JPanel gerantPanel = new JPanel(new GridLayout(7, 1, 10, 10));
 
         JButton viewClientsButton = new JButton("View All Clients");
+        viewClientsButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton viewAccountsButton = new JButton("View All Accounts");
+        viewAccountsButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton viewSpecificClientButton = new JButton("View Specific Client");
+        viewSpecificClientButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton viewSpecificAccountButton = new JButton("View Specific Account");
+        viewSpecificAccountButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton deleteAccountButton = new JButton("Delete an Account");
+        deleteAccountButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton logoutButton = new JButton("Log Out");
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         viewClientsButton.addActionListener(e -> {
             String allClients = Gerant.Consulter_Clients(); // Simulated method to get all clients
@@ -160,14 +175,19 @@ public class Interface {
         JPanel clientPanel = new JPanel(new GridLayout(4, 1, 10, 10));
 
         JButton loginButton = new JButton("Log In");
+        loginButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton signUpButton = new JButton("Sign Up");
+        signUpButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         loginButton.addActionListener(e -> showClientLogin());
         signUpButton.addActionListener(e -> showClientSignUp());
         backButton.addActionListener(e -> cardLayout.show(mainPanel, "MainMenu"));
 
-        clientPanel.add(new JLabel("Client Options", JLabel.CENTER));
+        JLabel clientoptions = new JLabel("Client Options", JLabel.CENTER );
+        clientoptions.setFont(new Font("Arial", Font.BOLD, 20));
+        clientPanel.add(clientoptions);
         clientPanel.add(loginButton);
         clientPanel.add(signUpButton);
         clientPanel.add(backButton);
@@ -180,12 +200,18 @@ public class Interface {
     private static void showClientLogin() {
         JPanel loginPanel = new JPanel(new GridLayout(4, 2, 10, 10));
         JLabel cinLabel = new JLabel("CIN:");
+        cinLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JTextField cinField = new JTextField();
+        cinField.setFont(new Font("Arial", Font.BOLD, 16));
         JLabel passLabel = new JLabel("Password:");
+        passLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JPasswordField passField = new JPasswordField();
+        passField.setFont(new Font("Arial", Font.BOLD, 16));
 
         JButton loginButton = new JButton("Login");
+        loginButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         loginButton.addActionListener(e -> {
             String cin = cinField.getText();
@@ -257,11 +283,17 @@ public class Interface {
         
 
         JButton viewAccountButton = new JButton("View Account");
+        viewAccountButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton depositButton = new JButton("Deposit Money");
+        depositButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton withdrawButton = new JButton("Withdraw Money");
+        withdrawButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton transferButton = new JButton("Transfer Money");
+        transferButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton deleteAccountButton = new JButton("Delete Account");
+        deleteAccountButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton logoutButton = new JButton("Log Out");
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         viewAccountButton.addActionListener(e -> {
             String accountDetails = compte.toString();
@@ -326,16 +358,26 @@ public class Interface {
     private static void showClientSignUp() {
         JPanel signUpPanel = new JPanel(new GridLayout(5, 2, 10, 10));
         JLabel cinLabel = new JLabel("CIN:");
+        cinLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JTextField cinField = new JTextField();
+        cinField.setFont(new Font("Arial", Font.BOLD, 16));
         JLabel firstNameLabel = new JLabel("First Name:");
+        firstNameLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JTextField firstNameField = new JTextField();
+        firstNameField.setFont(new Font("Arial", Font.BOLD, 16));
         JLabel lastNameLabel = new JLabel("Last Name:");
+        lastNameLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JTextField lastNameField = new JTextField();
+        lastNameField.setFont(new Font("Arial", Font.BOLD, 16));
         JLabel passLabel = new JLabel("Password:");
+        passLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JPasswordField passField = new JPasswordField();
+        passField.setFont(new Font("Arial", Font.BOLD, 16));
 
         JButton signUpButton = new JButton("Sign Up");
+        signUpButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         signUpButton.addActionListener(e -> {
             String cin = cinField.getText();
