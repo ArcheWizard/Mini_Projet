@@ -12,7 +12,7 @@ public class Interface {
     private static JPanel mainPanel;
     private static CardLayout cardLayout;
 
-    public static void main(String[] args) {
+    public static void main() {
         setupMainFrame();
         showMainMenu();
     }
@@ -157,8 +157,9 @@ public class Interface {
         });
 
         logoutButton.addActionListener(e -> cardLayout.show(mainPanel, "MainMenu"));
-
-        gerantPanel.add(new JLabel("Gerant Menu", JLabel.CENTER));
+        JLabel gerantMenu = new JLabel("Gerant Menu", JLabel.CENTER);
+        gerantMenu.setFont(new Font("Arial", Font.BOLD, 20));
+        gerantPanel.add(gerantMenu);
         gerantPanel.add(viewClientsButton);
         gerantPanel.add(viewAccountsButton);
         gerantPanel.add(viewSpecificClientButton);
