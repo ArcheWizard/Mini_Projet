@@ -21,7 +21,7 @@ public class Interface {
     private static void setupMainFrame() {
         mainFrame = new JFrame("Bank Management System");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(600, 400);
+        mainFrame.setSize(700, 500);
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
@@ -254,9 +254,12 @@ public class Interface {
             "<html>You don't have an account.<br>Would you like to create one or log out?</html>",
             JLabel.CENTER
         );
+        messageLabel.setFont(new Font("Arial", Font.BOLD, 15));
 
         JButton createAccountButton = new JButton("Create Account");
+        createAccountButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton logoutButton = new JButton("Log Out");
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         createAccountButton.addActionListener(e -> {
             Client.Ajout_Compte(full_client); // Simulated method to create an account for the client
@@ -279,7 +282,7 @@ public class Interface {
 
     // Client Account Menu
     private static void showClientAccountMenu(Client client) {
-        JPanel accountPanel = new JPanel(new GridLayout(6, 1, 10, 10));
+        JPanel accountPanel = new JPanel(new GridLayout(8, 2, 10, 10));
         Compte compte = Banque.get_Compte(client);
         
 
@@ -342,8 +345,9 @@ public class Interface {
         });
 
         logoutButton.addActionListener(e -> cardLayout.show(mainPanel, "ClientMenu"));
-
-        accountPanel.add(new JLabel("Client Account Menu", JLabel.CENTER));
+        JLabel clientMenu =new JLabel("Client Account Menu", JLabel.CENTER);
+        clientMenu.setFont(new Font("Arial", Font.BOLD, 20));
+        accountPanel.add(clientMenu);
         accountPanel.add(viewAccountButton);
         accountPanel.add(depositButton);
         accountPanel.add(withdrawButton);
