@@ -15,13 +15,14 @@ public class Gerant extends Personne {
         super(cin, pass);
     }
 
-    public static void Consulter_Clients(){
+    public static String Consulter_Clients(){
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
+        String allClients="";
 
         if (connection != null) {
             
-            String query = "SELECT * FROM clients";
+            String query = "SELECT cin FROM clients";
             
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
@@ -31,29 +32,11 @@ public class Gerant extends Personne {
 
                     String cin = resultSet.getString(1);
 
-                    String nom = resultSet.getString(2);
-
-                    String prenom = resultSet.getString(3);
-
-                    String pass = resultSet.getString(4);
-
-                    Client client = new Client(cin, nom, prenom, pass);
-
-                    System.out.println("---------------------");
-
-                    System.out.println("CIN: "+cin);
-
-                    System.out.println("Nom: "+nom);
-
-                    System.out.println("Prenom: "+prenom);
-
-                    Client.Consulter_Compte_Client(client);
-
-                    System.out.println("---------------------");
+                    allClients += Consulter_Client(cin);
                     
                 }
 
-                System.out.println("Printing is successful!");
+                return allClients;
 
                 } 
 
@@ -66,11 +49,14 @@ public class Gerant extends Personne {
                 }   
 
         }
+
+        return null;
     }
 
-    public static void Consulter_Client(String cin){
+    public static String Consulter_Client(String cin){
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
+        String CH="";
 
         if (connection != null) {
             
@@ -92,17 +78,17 @@ public class Gerant extends Personne {
 
                     Client client = new Client(cin, nom, prenom, pass);
 
-                    System.out.println("---------------------");
+                    client = Banque.get_Client(client);
 
-                    System.out.println("CIN: "+cin);
+                    Compte compte = Banque.get_Compte(client);
 
-                    System.out.println("Nom: "+nom);
+                    CH=client.toString();
 
-                    System.out.println("Prenom: "+prenom);
+                    if(compte != null){
+                        CH+=compte.toString();
+                    }
 
-                    Client.Consulter_Compte_Client(client);
-
-                    System.out.println("---------------------");
+                    return CH;
                     
                 }
 
@@ -119,11 +105,14 @@ public class Gerant extends Personne {
                 }   
 
         }
+
+        return null;
     }
     
-    public static void Consulter_Comptes(){
+    public static String Consulter_Comptes(){
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
+        String allComptes="";
 
         if (connection != null) {
             
@@ -137,23 +126,19 @@ public class Gerant extends Personne {
 
                     String ref_compte = resultSet.getString(1);
 
-                    String CIN = resultSet.getString(2);
+                    String cin = resultSet.getString(2);
 
-                    Double Balance = resultSet.getDouble(3);
+                    Client client = Banque.get_Client(cin);
 
-                    System.out.println("---------------------");
+                    Compte compte = Banque.get_Compte(client);
 
-                    System.out.println("Reference Compte: "+ref_compte);
-
-                    System.out.println("CIN: "+CIN);
-
-                    System.out.println("Balance: "+Balance);
-
-                    System.out.println("---------------------");
+                    if(compte != null){
+                        allComptes += Consulter_Compte(ref_compte);
+                    }
                     
                 }
 
-                System.out.println("Printing is successful!");
+                return allComptes;
 
                 } 
 
@@ -166,9 +151,11 @@ public class Gerant extends Personne {
                 }   
 
         }
+
+        return null;
     }
 
-    public static void Consulter_Compte(String ref_compte){
+    public static String Consulter_Compte(String ref_compte){
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();
 
@@ -186,17 +173,13 @@ public class Gerant extends Personne {
 
                     String CIN = resultSet.getString(2);
 
-                    Double Balance = resultSet.getDouble(3);
+                    Client client = Banque.get_Client(CIN);
 
-                    System.out.println("---------------------");
+                    Compte compte = Banque.get_Compte(client);
 
-                    System.out.println("Reference Compte: "+ref_compte);
-
-                    System.out.println("CIN: "+CIN);
-
-                    System.out.println("Balance: "+Balance);
-
-                    System.out.println("---------------------");
+                    if(compte != null){
+                        return compte.toString();
+                    }
                     
                 }
 
@@ -213,6 +196,8 @@ public class Gerant extends Personne {
                 }   
 
         }
+
+        return null;
     }
 
     public static void Supprimer_Client(Client client) {

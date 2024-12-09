@@ -82,28 +82,29 @@ public class Menu {
                             System.out.println("6. Log out");
 
                             System.out.print("Enter your choice: ");
+                            System.out.println();
 
                             if (scanner.hasNextInt()) {
                                 int choice2 = scanner.nextInt();
 
                                 switch (choice2) {
                                     case 1:
-                                        Gerant.Consulter_Clients();
+                                        System.out.println(Gerant.Consulter_Clients());
                                         break;
                                     case 2:
-                                        Gerant.Consulter_Comptes();
+                                        System.out.println(Gerant.Consulter_Comptes());
                                         break;
                                     case 3:
                                         System.out.println("Which client do you want to check?");
                                         System.out.print("CIN: ");
                                         String cin = scanner.next();
-                                        Gerant.Consulter_Client(cin);
+                                        System.out.print(Gerant.Consulter_Client(cin));
                                         break;
                                     case 4:
                                         System.out.println("Which account do you want to check?");
                                         System.out.print("Account reference: ");
                                         String ref_compte = scanner.next();
-                                        Gerant.Consulter_Compte(ref_compte);
+                                        System.out.println(Gerant.Consulter_Compte(ref_compte));
                                         break;
                                     case 5:
                                         System.out.println("Which client do you want to check?");
@@ -197,7 +198,7 @@ public class Menu {
                                                         Client client_receiver = Banque.get_Client(cin);
                                                         System.out.print("How much money do you wanna send?: ");
                                                         montant = scanner.nextDouble();
-                                                        Compte.Transferer(client, client_receiver, montant);
+                                                        Compte.Transferer(client.getCompte(), client_receiver.getCompte(), montant);
                                                         compte = Banque.get_Compte(client);
                                                         transaction = new Transaction(compte.getRef_compte(), Type_Transaction.transfer, montant);
                                                         Banque.Ajout_Transaction(transaction);
