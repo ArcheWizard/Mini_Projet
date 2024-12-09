@@ -153,6 +153,7 @@ public class Menu {
 
                                         if(Banque.get_Compte(client) != null){
 
+                                            client = Banque.get_Client(client);
                                             Compte compte = Banque.get_Compte(client);
 
                                             System.out.println("Please choose an option:");
@@ -166,11 +167,15 @@ public class Menu {
                                             System.out.print("Enter your choice: ");
 
                                             if (scanner.hasNextInt()) {
+
+                                                client = Banque.get_Client(client);
+                                                compte = Banque.get_Compte(client);
+                                                
                                                 int choice2 = scanner.nextInt();
 
                                                 switch (choice2) {
                                                     case 1:
-                                                        Client.Consulter_Compte_Client(client);
+                                                        System.out.println(compte.toString());
                                                         break;
                                                     case 2:
                                                         System.out.println("Reference de compte: "+compte.getRef_compte());
@@ -198,8 +203,7 @@ public class Menu {
                                                         Client client_receiver = Banque.get_Client(cin);
                                                         System.out.print("How much money do you wanna send?: ");
                                                         montant = scanner.nextDouble();
-                                                        Compte.Transferer(client.getCompte(), client_receiver.getCompte(), montant);
-                                                        compte = Banque.get_Compte(client);
+                                                        Compte.Transferer(Banque.get_Compte(client), Banque.get_Compte(client_receiver), montant);
                                                         transaction = new Transaction(compte.getRef_compte(), Type_Transaction.transfer, montant);
                                                         Banque.Ajout_Transaction(transaction);
                                                         break;

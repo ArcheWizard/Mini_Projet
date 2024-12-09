@@ -250,6 +250,7 @@ public class Interface {
     // Client Account Menu
     private static void showClientAccountMenu(Client client) {
         JPanel accountPanel = new JPanel(new GridLayout(6, 1, 10, 10));
+        Compte compte = Banque.get_Compte(client);
         
 
         JButton viewAccountButton = new JButton("View Account");
@@ -260,21 +261,21 @@ public class Interface {
         JButton logoutButton = new JButton("Log Out");
 
         viewAccountButton.addActionListener(e -> {
-            String accountDetails = client.getCompte().toString();
+            String accountDetails = compte.toString();
             JOptionPane.showMessageDialog(mainFrame, accountDetails, "Account Details", JOptionPane.INFORMATION_MESSAGE);
         });
 
         depositButton.addActionListener(e -> {
             String amountStr = JOptionPane.showInputDialog(mainFrame, "Enter amount to deposit:");
             double amount = Double.parseDouble(amountStr);
-            Compte.Depot(client.getCompte(), amount);
+            Compte.Depot(compte, amount);
             JOptionPane.showMessageDialog(mainFrame, "Deposited: " + amount);
         });
 
         withdrawButton.addActionListener(e -> {
             String amountStr = JOptionPane.showInputDialog(mainFrame, "Enter amount to withdraw:");
             double amount = Double.parseDouble(amountStr);
-            Compte.Retrait(client.getCompte(), amount);
+            Compte.Retrait(compte, amount);
             JOptionPane.showMessageDialog(mainFrame, "Withdrawn: " + amount);
         });
 
@@ -283,14 +284,14 @@ public class Interface {
             Client client_receiver = Banque.get_Client(recipientCIN);
             String amountStr = JOptionPane.showInputDialog(mainFrame, "Enter amount to transfer:");
             double amount = Double.parseDouble(amountStr);
-            Compte.Transferer(client.getCompte(), client_receiver.getCompte(), amount);
+            Compte.Transferer(compte, Banque.get_Compte(client_receiver), amount);
             JOptionPane.showMessageDialog(mainFrame, "Transferred: " + amount + " to CIN: " + recipientCIN);
         });
 
         deleteAccountButton.addActionListener(e -> {
             
             if (client.getCompte()!=null) {
-                Client.Supprimer_Compte(client.getCompte());
+                Client.Supprimer_Compte(compte);
                 JOptionPane.showMessageDialog(mainFrame, "Account deleted successfully!");
                 cardLayout.show(mainPanel, "ClientMenu");
             } else {
