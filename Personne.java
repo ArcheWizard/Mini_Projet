@@ -5,12 +5,19 @@ public class Personne {
     private String nom;
     private String prenom;
     private String pass;
+
     public Personne (String cin,String nom,String prenom,String pass){
         this.cin=cin;
         this.nom=nom;
         this.prenom=prenom;
         this.pass=pass;
     }
+
+    public Personne(String cin, String pass){
+        this.cin=cin;
+        this.pass=pass;
+    }
+    
     public String getCin() {
         return cin;
     }
@@ -27,23 +34,19 @@ public class Personne {
         return pass;
     }
 
-    public String  getcin(){
-        return cin;
-    }
-
-    public void setnom(String nom){
-        this.nom = nom;
-    }
-
-    public void setprenom(String prenom){
-        this.prenom=prenom;
-    }
-
     public void setCin(String cin){
         this.cin = cin;
     }
 
-    public void setpass(String pass){
+    public void setNom(String nom){
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom){
+        this.prenom=prenom;
+    }
+
+    public void setPass(String pass){
         this.pass =pass;
     }
     

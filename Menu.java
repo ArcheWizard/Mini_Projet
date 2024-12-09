@@ -1,6 +1,9 @@
 package mini_projet;
 
 import java.util.Scanner;
+
+import mini_projet.Transaction.Type_Transaction;
+
 /* Database Import
 import java.sql.*;
 Graphical Interface Import 
@@ -10,166 +13,298 @@ import java.awt.event.ActionListener;*/
 
 public class Menu {
 
-    public static void client_sign_up(){
-        Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in); // Single shared Scanner instance
+
+    public static Client client_sign_up_menu() {
+        System.out.println("Client Sign-Up");
         System.out.print("CIN: ");
         String cin = scanner.next();
-        System.out.println();
         System.out.print("Nom: ");
         String nom = scanner.next();
-        System.out.println();
         System.out.print("Prenom: ");
         String prenom = scanner.next();
-        System.out.println();
         System.out.print("Pass: ");
         String pass = scanner.next();
         Client client = new Client(cin, nom, prenom, pass);
-        DALClient_compte.addClient(client);
         System.out.println("---------------------");
-        scanner.close();
+        return client;
     }
 
-    public static boolean client_login(){
-        Scanner scanner = new Scanner(System.in);
+    public static Client client_login_menu() {
+        System.out.println("Client Log-in");
         System.out.print("CIN: ");
         String cin = scanner.next();
-        System.out.println();
         System.out.print("Pass: ");
         String pass = scanner.next();
         Client client = new Client(cin, pass);
         System.out.println("---------------------");
-        scanner.close();
-        return DALClient_compte.login(client);
+        return client;
     }
 
-    public static boolean gerant_login(){
-        Scanner scanner = new Scanner(System.in);
+    public static Gerant gerant_login_menu() {
+        System.out.println("Gerant Log-in");
         System.out.print("CIN: ");
         String cin = scanner.next();
-        System.out.println();
         System.out.print("Pass: ");
         String pass = scanner.next();
         Gerant gerant = new Gerant(cin, pass);
         System.out.println("---------------------");
-        scanner.close();
-        return DALClient_compte.login(gerant);
+        return gerant;
     }
 
-    public static void Main(){
+    public static void Main() {
 
-        Scanner scanner = new Scanner(System.in);
+        boolean bank_status = true;
 
-		boolean bank_status=true;
+        while (bank_status) {
+            System.out.println("Please choose an option:");
+            System.out.println("1. Gerant");
+            System.out.println("2. Client");
+            System.out.println("3. Exit");
 
-				while(bank_status==true)
-				{
+            System.out.print("Enter your choice: ");
 
-					System.out.println("-0:Gérant");
-                    System.out.println("-1:Client");
-                    System.out.println("-2:Exit");
-                    System.out.println("---------------------");
+            if (scanner.hasNextInt()) {
+                int choice1 = scanner.nextInt();
 
-					int a = scanner.nextInt();
+                switch (choice1) {
+                    case 1:
+                        Gerant gerant = Menu.gerant_login_menu();
+                        boolean gerant_status = Banque.Login(gerant);
 
-                    System.out.println("---------------------");
+                        while (gerant_status) {
+                            System.out.println("Please choose an option:");
+                            System.out.println("1. Afficher tous les clients");
+                            System.out.println("2. Afficher tous les comptes");
+                            System.out.println("3. Afficher un client");
+                            System.out.println("4. Afficher une compte");
+                            System.out.println("5. Supprimer un compte");
+                            System.out.println("6. Log out");
 
-					switch (a) 
-					{
-        
-						case 0:
+                            System.out.print("Enter your choice: ");
 
-                            boolean gerant_status=gerant_login();;
+                            if (scanner.hasNextInt()) {
+                                int choice2 = scanner.nextInt();
 
-                            while(gerant_status==true)
-                            {
-                                System.out.println("-0:Consulter Comptes");
-                                System.out.println("-1:?");
-                                System.out.println("-2:Exit");
-                                System.out.println("---------------------");
+                                switch (choice2) {
+                                    case 1:
+                                        Gerant.Consulter_Clients();
+                                        break;
+                                    case 2:
+                                        Gerant.Consulter_Comptes();
+                                        break;
+                                    case 3:
+                                        System.out.println("Which client do you want to check?");
+                                        System.out.print("CIN: ");
+                                        String cin = scanner.next();
+                                        Gerant.Consulter_Client(cin);
+                                        break;
+                                    case 4:
+                                        System.out.println("Which account do you want to check?");
+                                        System.out.print("Account reference: ");
+                                        String ref_compte = scanner.next();
+                                        Gerant.Consulter_Compte(ref_compte);
+                                        break;
+                                    case 5:
+                                        System.out.println("Which client do you want to check?");
+                                        System.out.print("CIN: ");
+                                        cin = scanner.next();
+                                        Client client = Banque.get_Client(cin);
+                                        Gerant.Supprimer_Client(client);
+                                        break;
+                                    case 6:
+                                        System.out.println("Logging out. Goodbye!");
+                                        gerant_status = false;
+                                        break;
+                                    default:
+                                        System.out.println("Invalid option. Please enter 1, 2, or 3.");
+                                }
+                            } else {
+                                System.out.println("Invalid input. Please enter a number (1, 2, or 3).");
+                                scanner.next(); // Consume invalid input
+                            }
+                            System.out.println(); // Add a blank line for better readability
+                        }
+                        break;
 
-                                a = scanner.nextInt();
+                    case 2:
+                        Client client = null;
+                        System.out.println("Dear Client, please choose an option:");
+                        System.out.println("1. Log in");
+                        System.out.println("2. Sign up");
+                        System.out.println("3. Exit");
 
-                                System.out.println("---------------------");
+                        System.out.print("Enter your choice: ");
 
-                                switch(a)
-                                {
+                        if (scanner.hasNextInt()) {
+                            int choice3 = scanner.nextInt();
 
-                                case 0:
-                                    break;
-                                
+                            switch (choice3) {
                                 case 1:
+                                    client = Menu.client_login_menu();
+                                    boolean client_status = Banque.Login(client);
+
+                                    while (client_status) {
+
+                                        System.out.println("Login Successful!");
+
+                                        client = Banque.get_Client(client);
+
+                                        if(Banque.get_Compte(client) != null){
+
+                                            Compte compte = Banque.get_Compte(client);
+
+                                            System.out.println("Please choose an option:");
+                                            System.out.println("1. Afficher compte");
+                                            System.out.println("2. Depot");
+                                            System.out.println("3. Retrait");
+                                            System.out.println("4. Transfer");
+                                            System.out.println("5. Supprimer compte");
+                                            System.out.println("6. Log out");
+
+                                            System.out.print("Enter your choice: ");
+
+                                            if (scanner.hasNextInt()) {
+                                                int choice2 = scanner.nextInt();
+
+                                                switch (choice2) {
+                                                    case 1:
+                                                        Client.Consulter_Compte_Client(client);
+                                                        break;
+                                                    case 2:
+                                                        System.out.println("Reference de compte: "+compte.getRef_compte());
+                                                        System.out.print("How much money do you wanna deposit?: ");
+                                                        double montant = scanner.nextDouble();
+                                                        Compte.Depot(compte,montant);
+                                                        compte = Banque.get_Compte(client);
+                                                        Transaction transaction = new Transaction(compte.getRef_compte(), Type_Transaction.depot, montant);
+                                                        Banque.Ajout_Transaction(transaction);
+                                                        break;
+                                                    case 3:
+                                                        System.out.println("Reference de compte: "+compte.getRef_compte());
+                                                        System.out.print("How much money do you wanna withdraw?: ");
+                                                        montant = scanner.nextFloat();
+                                                        Compte.Retrait(compte,montant);
+                                                        compte = Banque.get_Compte(client);
+                                                        transaction = new Transaction(compte.getRef_compte(), Type_Transaction.retrait, montant);
+                                                        Banque.Ajout_Transaction(transaction);
+                                                        break;
+                                                    
+                                                    case 4:
+                                                        System.out.println("To which client do you want to send to?");
+                                                        System.out.print("CIN: ");
+                                                        String cin = scanner.next();
+                                                        Client client_receiver = Banque.get_Client(cin);
+                                                        System.out.print("How much money do you wanna send?: ");
+                                                        montant = scanner.nextDouble();
+                                                        Compte.Transferer(client, client_receiver, montant);
+                                                        compte = Banque.get_Compte(client);
+                                                        transaction = new Transaction(compte.getRef_compte(), Type_Transaction.transfer, montant);
+                                                        Banque.Ajout_Transaction(transaction);
+                                                        break;
+                                                    
+                                                    case 5:
+                                                        compte = Banque.get_Compte(client);
+                                                        if(compte.getBalance()==0){
+                                                            Client.Supprimer_Compte(compte);
+                                                        }
+                                                        else{
+                                                            System.out.println("Sorry, your account still has a balance, you should withdraw or transfer it all before deleting it");
+
+                                                        }
+                                                        break;
+                                                    
+                                                    case 6:
+                                                        System.out.println("Exiting the program. Goodbye!");
+                                                        client_status = false;
+                                                        break;
+
+                                                    default:
+                                                        System.out.println("Invalid option. Please enter 1, 2, 3 or 4.");
+                                                    
+                                                    }
+                                                
+                                                } 
+                                                
+                                                else {
+                                                    System.out.println("Invalid input. Please enter a number (1, 2, 3 or 4).");
+                                                    scanner.next(); // Consume invalid input
+                                                }
+
+                                                System.out.println(); // Add a blank line for better readability
+
+                                        }
+
+                                        else{
+
+                                            System.out.println("Hey, I see that you still haven't created an account!");
+                                            System.out.println("1. Create account?");
+                                            System.out.println("2. Log out");
+
+                                            System.out.print("Enter your choice: ");
+
+                                            if (scanner.hasNextInt()) {
+                                                int choice2 = scanner.nextInt();
+
+                                                switch (choice2) {
+                                                    case 1:
+                                                        Client.Ajout_Compte(client);
+                                                        break;
+                                                    case 2:
+                                                        System.out.println("Logging out. Goodbye "+client.getPrenom()+"!");
+                                                        client_status = false;
+                                                        break;
+                                                    default:
+                                                        System.out.println("Invalid option. Please enter 1 or 2.");
+                                                    
+                                                    }
+                                                
+                                                } 
+                                                
+                                                else {
+                                                    System.out.println("Invalid input. Please enter a number (1 or 2).");
+                                                    scanner.next(); // Consume invalid input
+                                                }
+
+                                                System.out.println(); // Add a blank line for better readability
+                                            
+                                        }
+
+                                    }
                                     break;
 
                                 case 2:
-                                    gerant_status=false;
+                                    client = Menu.client_sign_up_menu();
+                                    Banque.Ajout_Client(client);
                                     break;
 
-                                }
+                                case 3:
+                                    System.out.println("Exiting the program. Goodbye!");
+                                    break;
+
+                                default:
+                                    System.out.println("Invalid option. Please enter 1, 2, or 3.");
                             }
-							break;
-						
-						case 1:
-                            System.out.println("-0:Log in");
-                            System.out.println("-1:New Client? Sign Up");
-                            System.out.println("-2:Exit");
-                            System.out.println("---------------------");
+                        } else {
+                            System.out.println("Invalid input. Please enter a number (1, 2, or 3).");
+                            scanner.next(); // Consume invalid input
+                        }
+                        System.out.println();
+                        break;
 
-                            a=scanner.nextInt();
+                    case 3:
+                        System.out.println("Exiting the program. Goodbye!");
+                        bank_status = false;
+                        break;
 
-                            System.out.println("---------------------");
-
-                            switch(a)
-                            {
-
-                            case 0:
-
-                                boolean client_status=client_login();
-
-                                while(client_status==true){
-
-                                    System.out.println("-0:?");
-                                    System.out.println("-1:?");
-                                    System.out.println("-2:Exit");
-                                    System.out.println("---------------------");
-
-                                    a = scanner.nextInt();
-
-                                    System.out.println("---------------------");
-
-                                    switch(a){
-
-                                        case 0:
-                                            break;
-
-                                        case 1:
-                                            break;
-
-                                        case 2:
-                                            break;
-                                            
-                                    }
-
-                                }
-                                break;
-                            
-                            case 1:
-                                client_sign_up();
-                                break;
-
-                            case 2:
-                                break;
-
-                            }
-
-                            break;
-
-						case 2:
-                            bank_status=false;
-                            break;
-                    
-					}
-				}
-
-		scanner.close();
+                    default:
+                        System.out.println("Invalid option. Please enter 1, 2, or 3.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number (1, 2, or 3).");
+                scanner.next(); // Consume invalid input
+            }
+            System.out.println();
+        }
     }
 }

@@ -2,22 +2,36 @@ package mini_projet;
 
 public class Transaction{
 
-    private String id;
-    private String type; // deposit, withdrawal, transfer
+    private String ref_transaction;
+    private String ref_compte;
+    enum Type_Transaction{
+        depot,
+        retrait,
+        transfer}
+    private Type_Transaction type_transaction;
     private double montant;
 
-    public Transaction(String id, String type, double montant) {
-        this.id = id;
-        this.type = type;
+    public Transaction(String ref_compte, Type_Transaction type_transaction, double montant) {
+        this.ref_compte = ref_compte;
+        this.type_transaction = type_transaction;
         this.montant = montant;
     }
 
-    public String getId() {
-        return id;
+    public Transaction(String ref_transaction) {
+        this.ref_transaction=ref_transaction;
     }
 
-    public String getType() {
-        return type;
+
+    public String getRef_transaction() {
+        return ref_transaction;
+    }
+
+    public String getRef_compte() {
+        return ref_compte;
+    }
+
+    public String getType_transaction() {
+        return type_transaction.name();
     }
 
     public double getMontant() {
@@ -27,8 +41,8 @@ public class Transaction{
     @Override
     public String toString() {
         return "Transaction{" +
-                "transactionId='" + id + '\'' +
-                ", type='" + type + '\'' +
+                "transactionref_transaction='" + ref_transaction + '\'' +
+                ", type_transaction='" + type_transaction + '\'' +
                 ", montant=" + montant +
                 '}';
     }
