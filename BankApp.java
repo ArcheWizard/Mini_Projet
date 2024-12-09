@@ -100,7 +100,11 @@ public class BankApp extends JFrame {
 
         JButton loginButton = new JButton("Log In");
         loginButton.setFont(new Font("Arial", Font.BOLD, 16));
-        loginButton.addActionListener(e -> cardLayout.show(mainPanel, "GerantActions"));
+        loginButton.addActionListener(e ->
+        {   
+            GerantLogin();
+            cardLayout.show(mainPanel, "Login");});
+
         panel.add(loginButton);
 
         JButton backButton = new JButton("Back");
@@ -195,6 +199,61 @@ public class BankApp extends JFrame {
 /* --------------------------------------------------------------------------------------
  kol option (login , singup , depot , ......) lzm ykoun 3ndha void kima elli louta !!!! 
  ----------------------------------------------------------------------------------------*/
+ private void GerantLogin() {
+    JPanel LoginPanel = new JPanel(new GridLayout(6,8 ));
+
+    JLabel cinLabel = new JLabel("CIN:");
+    cinLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+    JTextField cinField = new JTextField();
+    cinField.setFont(new Font("Arial", Font.BOLD, 16));
+
+    JLabel passLabel = new JLabel("Pass:");
+    passLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+    JPasswordField passField = new JPasswordField();
+    passField.setFont(new Font("Arial", Font.BOLD, 16));
+
+    JButton submitButton = new JButton("Submit");
+    submitButton.setFont(new Font("Arial", Font.BOLD, 16));
+
+    JButton backButton = new JButton("Back");
+    backButton.setFont(new Font("Arial", Font.BOLD, 16));
+
+    LoginPanel.add(cinLabel);
+    LoginPanel.add(cinField);
+    LoginPanel.add(passLabel);
+    LoginPanel.add(passField);
+
+    LoginPanel.add(submitButton);
+    LoginPanel.add(backButton);
+
+    backButton.addActionListener(e -> cardLayout.show(mainPanel, "GerantMenu"));
+
+    mainPanel.add(LoginPanel, "Login");
+
+    submitButton.addActionListener(e -> {
+        String cin = cinField.getText();
+        String pass = new String(passField.getPassword());
+
+        Gerant gerant = new Gerant(cin, pass);
+        Banque.Login(gerant);
+
+        if(Banque.Login(gerant)){
+            JOptionPane.showMessageDialog(LoginPanel, "Login Successful! Welcome ");
+
+            CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
+            cardLayout.show(mainPanel, "GerantActions");
+        }
+        else{
+            JOptionPane.showMessageDialog(LoginPanel, "cin ou pass incorrecte !", "Error", JOptionPane.ERROR_MESSAGE);
+            CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
+            cardLayout.show(mainPanel, "GerantMenu");
+        }
+      });
+    }
+
+
     private void clientLogin() {
         JPanel LoginPanel = new JPanel(new GridLayout(6,8 ));
 
@@ -248,7 +307,6 @@ public class BankApp extends JFrame {
             }
         });
     }
-
 
     private void clientSignUp() {
         JPanel signUpPanel = new JPanel(new GridLayout(10, 2));
@@ -315,12 +373,9 @@ public class BankApp extends JFrame {
 
             JOptionPane.showMessageDialog(signUpPanel, "Sign-Up Successful! Welcome " + client.getNom());
 
-                
             CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
             cardLayout.show(mainPanel, "ClientMenu");
             
         });
     }
 }
-    
-
