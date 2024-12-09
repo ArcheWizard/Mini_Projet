@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import mini_projet.Transaction.Type_Transaction;
+
 public class Gerant extends Personne {
 
     public Gerant(String cin, String nom, String prenom, String pass) {
@@ -184,6 +186,56 @@ public class Gerant extends Personne {
                 }
 
                 System.out.println("Printing is successful!");
+
+                } 
+
+            catch (SQLException e){
+                System.out.println("Error while retrieving data: " + e.getMessage());
+                } 
+            
+            finally{
+                dbConnection.closeConnection();
+                }   
+
+        }
+
+        return null;
+    }
+
+    public static String Consulter_Transactions(){
+        DBConnection dbConnection = new DBConnection();
+        Connection connection = dbConnection.getConnection();
+        String allTransactions="";
+
+        if (connection != null) {
+            
+            String query = "SELECT * FROM transactions";
+            
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next()){
+
+                    String ref_transactions = resultSet.getString(1);
+
+                    String ref_compte = resultSet.getString(2);
+
+                    String type_transaction = resultSet.getString(3);
+
+                    Double montant = resultSet.getDouble(4);
+
+                    Type_Transaction type_Transaction = Type_Transaction.valueOf(type_transaction);
+
+                    Transaction transaction = new Transaction(ref_transactions, ref_compte, type_Transaction, montant);
+
+                    if(transaction != null){
+                        allTransactions+=transaction.toString();
+                    }
+                    
+                }
+
+                return allTransactions;
 
                 } 
 

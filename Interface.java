@@ -100,16 +100,20 @@ public class Interface {
 
     // Gerant Menu Panel
     private static void showGerantMenu(Gerant gerant) {
-        JPanel gerantPanel = new JPanel(new GridLayout(7, 1, 10, 10));
+        JPanel gerantPanel = new JPanel(new GridLayout(9, 1, 10, 10));
 
         JButton viewClientsButton = new JButton("View All Clients");
         viewClientsButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton viewAccountsButton = new JButton("View All Accounts");
         viewAccountsButton.setFont(new Font("Arial", Font.BOLD, 16));
+        JButton viewTransactionsButton = new JButton("View All Transactions");
+        viewTransactionsButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton viewSpecificClientButton = new JButton("View Specific Client");
         viewSpecificClientButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton viewSpecificAccountButton = new JButton("View Specific Account");
         viewSpecificAccountButton.setFont(new Font("Arial", Font.BOLD, 16));
+        JButton modifyAccountButton = new JButton("Modify an Account");
+        modifyAccountButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton deleteAccountButton = new JButton("Delete an Account");
         deleteAccountButton.setFont(new Font("Arial", Font.BOLD, 16));
         JButton logoutButton = new JButton("Log Out");
@@ -118,6 +122,11 @@ public class Interface {
         viewClientsButton.addActionListener(e -> {
             String allClients = Gerant.Consulter_Clients(); // Simulated method to get all clients
             JOptionPane.showMessageDialog(mainFrame, allClients, "All Clients", JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        viewTransactionsButton.addActionListener(e -> {
+            String allTransactions = Gerant.Consulter_Transactions(); // Simulated method to get all clients
+            JOptionPane.showMessageDialog(mainFrame, allTransactions, "All Transactions", JOptionPane.INFORMATION_MESSAGE);
         });
 
         viewAccountsButton.addActionListener(e -> {
@@ -145,6 +154,18 @@ public class Interface {
             }
         });
 
+        modifyAccountButton.addActionListener(e -> {
+            String cin = JOptionPane.showInputDialog(mainFrame, "Enter Client CIN to modify:");
+            Client client = Banque.get_Client(cin);
+            if(client != null){
+                showModifyClient(cin);
+            }
+            else {
+                JOptionPane.showMessageDialog(mainFrame, "Client not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        });
+        
         deleteAccountButton.addActionListener(e -> {
             String cin = JOptionPane.showInputDialog(mainFrame, "Enter Client CIN to delete:");
             Client client = Banque.get_Client(cin);
@@ -161,9 +182,11 @@ public class Interface {
         gerantMenu.setFont(new Font("Arial", Font.BOLD, 20));
         gerantPanel.add(gerantMenu);
         gerantPanel.add(viewClientsButton);
+        gerantPanel.add(viewTransactionsButton);
         gerantPanel.add(viewAccountsButton);
         gerantPanel.add(viewSpecificClientButton);
         gerantPanel.add(viewSpecificAccountButton);
+        gerantPanel.add(modifyAccountButton);
         gerantPanel.add(deleteAccountButton);
         gerantPanel.add(logoutButton);
 
@@ -282,7 +305,7 @@ public class Interface {
 
     // Client Account Menu
     private static void showClientAccountMenu(Client client) {
-        JPanel accountPanel = new JPanel(new GridLayout(8, 2, 10, 10));
+        JPanel accountPanel = new JPanel(new GridLayout(8, 1, 10, 10));
         Compte compte = Banque.get_Compte(client);
         
 
@@ -415,5 +438,70 @@ public class Interface {
 
         mainPanel.add(signUpPanel, "ClientSignUp");
         cardLayout.show(mainPanel, "ClientSignUp");
+    }
+
+    private static void showModifyClient(String cin) {
+        JPanel ModifyPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        JLabel cinLabel = new JLabel("CIN:");
+        cinLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        JTextField cinField = new JTextField();
+        cinField.setFont(new Font("Arial", Font.BOLD, 16));
+        JLabel firstNameLabel = new JLabel("First Name:");
+        firstNameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        JTextField firstNameField = new JTextField();
+        firstNameField.setFont(new Font("Arial", Font.BOLD, 16));
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        lastNameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        JTextField lastNameField = new JTextField();
+        lastNameField.setFont(new Font("Arial", Font.BOLD, 16));
+        JLabel passLabel = new JLabel("Password:");
+        passLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        JPasswordField passField = new JPasswordField();
+        passField.setFont(new Font("Arial", Font.BOLD, 16));
+
+        JButton ConfirmChanges = new JButton("Confirm Changes");
+        ConfirmChanges.setFont(new Font("Arial", Font.BOLD, 16));
+        JButton backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
+
+        ConfirmChanges.addActionListener(e -> {
+            String new_cin = cinField.getText();
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String pass = new String(passField.getPassword());
+
+            if (!cin.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !pass.isEmpty()) {
+                Client client = new Client(new_cin, lastName, firstName, pass);
+                Banque.Modify_Client(client, cin); // Simulated method to modify a client
+                Compte compte = Banque.get_Compte(client);
+                if(compte == null){
+                    JOptionPane.showMessageDialog(mainFrame, "No Account to modify!");
+                }
+                else{
+                    Banque.Modify_Compte(client, cin);
+                    JOptionPane.showMessageDialog(mainFrame, "Modified account!");
+                }
+                JOptionPane.showMessageDialog(mainFrame, "Modification successful!");
+                cardLayout.show(mainPanel, "GerantMenu");
+            } else {
+                JOptionPane.showMessageDialog(mainFrame, "Please fill all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        backButton.addActionListener(e -> cardLayout.show(mainPanel, "GerantMenu"));
+
+        ModifyPanel.add(cinLabel);
+        ModifyPanel.add(cinField);
+        ModifyPanel.add(firstNameLabel);
+        ModifyPanel.add(firstNameField);
+        ModifyPanel.add(lastNameLabel);
+        ModifyPanel.add(lastNameField);
+        ModifyPanel.add(passLabel);
+        ModifyPanel.add(passField);
+        ModifyPanel.add(ConfirmChanges);
+        ModifyPanel.add(backButton);
+
+        mainPanel.add(ModifyPanel, "ModifyClient");
+        cardLayout.show(mainPanel, "ModifyClient");
     }
 }

@@ -380,6 +380,68 @@ public class Banque{
         }
     }
 
+    public static void Modify_Client(Client client, String cin){
+        DBConnection dbConnection = new DBConnection();
+        Connection connection = dbConnection.getConnection();
+
+        if (connection != null) {
+            
+            String query = "UPDATE clients SET cin = ? , nom = ? , prenom = ? , pass = ? WHERE (cin = ?)";
+            
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                preparedStatement.setString(1, client.getCin());
+                preparedStatement.setString(2, client.getNom());
+                preparedStatement.setString(3, client.getPrenom());
+                preparedStatement.setString(4, client.getPass());
+                preparedStatement.setString(5, cin);
+
+                preparedStatement.executeUpdate();
+                System.out.println("Client has been modified.");
+
+                } 
+
+            catch (SQLException e){
+                System.out.println("Error while modifying client: " + e.getMessage());
+                } 
+            
+            finally{
+                dbConnection.closeConnection();
+                }   
+
+        }
+    }
+
+    public static void Modify_Compte(Client client, String cin){
+        DBConnection dbConnection = new DBConnection();
+        Connection connection = dbConnection.getConnection();
+
+        if (connection != null) {
+            
+            String query = "UPDATE comptes SET ref_compte = ? WHERE (cin = ?);";
+            
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                
+                Compte compte = new Compte(client);
+                preparedStatement.setString(1, compte.generer_ref_compte(client.getNom(), client.getPrenom(), client.getCin()));
+                preparedStatement.setString(2, client.getCin());
+
+                preparedStatement.executeUpdate();
+                System.out.println("Account has been modified.");
+
+                } 
+
+            catch (SQLException e){
+                System.out.println("Error while modifying account: " + e.getMessage());
+                } 
+            
+            finally{
+                dbConnection.closeConnection();
+                }   
+
+        }
+    }
+    
     public static void Supprimer_Transaction(Transaction transaction) {
         DBConnection dbConnection = new DBConnection();
         Connection connection = dbConnection.getConnection();

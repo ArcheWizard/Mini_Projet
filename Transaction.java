@@ -17,6 +17,13 @@ public class Transaction{
         this.montant = montant;
     }
 
+    public Transaction(String ref_transaction, String ref_compte, Type_Transaction type_transaction, double montant) {
+        this.ref_transaction=ref_transaction;
+        this.ref_compte = ref_compte;
+        this.type_transaction = type_transaction;
+        this.montant = montant;
+    }
+
     public Transaction(String ref_transaction) {
         this.ref_transaction=ref_transaction;
     }
@@ -40,11 +47,11 @@ public class Transaction{
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "transactionref_transaction='" + ref_transaction + '\'' +
-                ", type_transaction='" + type_transaction + '\'' +
-                ", montant=" + montant +
-                '}';
+        return "Reference de Transaction: "+getRef_transaction()+"\n"+
+                "Reference de Compte: "+getRef_compte()+"\n"+
+                "Type de Transaction: "+getType_transaction()+"\n"+
+                "Montant: "+getMontant()+"\n"+
+                "-------------------------------\n";
     }
     
 }
