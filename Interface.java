@@ -1,6 +1,9 @@
 package mini_projet;
 
 import javax.swing.*;
+
+import mini_projet.Transaction.Type_Transaction;
+
 import java.awt.*;
 //import java.awt.event.ActionEvent;
 
@@ -269,6 +272,8 @@ public class Interface {
             String amountStr = JOptionPane.showInputDialog(mainFrame, "Enter amount to deposit:");
             double amount = Double.parseDouble(amountStr);
             Compte.Depot(compte, amount);
+            Transaction transaction = new Transaction(compte.getRef_compte(), Type_Transaction.depot, amount);
+            Banque.Ajout_Transaction(transaction);
             JOptionPane.showMessageDialog(mainFrame, "Deposited: " + amount);
         });
 
@@ -276,6 +281,8 @@ public class Interface {
             String amountStr = JOptionPane.showInputDialog(mainFrame, "Enter amount to withdraw:");
             double amount = Double.parseDouble(amountStr);
             Compte.Retrait(compte, amount);
+            Transaction transaction = new Transaction(compte.getRef_compte(), Type_Transaction.retrait, amount);
+            Banque.Ajout_Transaction(transaction);
             JOptionPane.showMessageDialog(mainFrame, "Withdrawn: " + amount);
         });
 
@@ -285,6 +292,8 @@ public class Interface {
             String amountStr = JOptionPane.showInputDialog(mainFrame, "Enter amount to transfer:");
             double amount = Double.parseDouble(amountStr);
             Compte.Transferer(compte, Banque.get_Compte(client_receiver), amount);
+            Transaction transaction = new Transaction(compte.getRef_compte(), Type_Transaction.transfer, amount);
+            Banque.Ajout_Transaction(transaction);
             JOptionPane.showMessageDialog(mainFrame, "Transferred: " + amount + " to CIN: " + recipientCIN);
         });
 
