@@ -7,20 +7,27 @@ import java.sql.SQLException;
 public class Compte{
 
     private String ref_compte;
+    private String cin;
     private double balance;
     
     public Compte(Client client){
         this.ref_compte=generer_ref_compte(client.getNom(),client.getPrenom(),client.getCin());
+        this.cin=client.getCin();
         this.balance=0.0f;
     }
     
     public Compte(String cin, String nom, String prenom, String pass){
         this.ref_compte=generer_ref_compte(nom,prenom,cin);
+        this.cin=cin;
         this.balance=0.0f;
     }
 
     public String getRef_compte() {
         return ref_compte;
+    }
+
+    public String getCin() {
+        return cin;
     }
 
     public double getBalance() {
@@ -29,6 +36,10 @@ public class Compte{
 
     public void setRef_compte(String ref_compte) {
         this.ref_compte = ref_compte;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public void setBalance(float balance) {
@@ -147,15 +158,18 @@ public class Compte{
         
     }
 
-    public static void Transferer(Client client_sender, Client client_receiver, double montant){
-        Retrait(Banque.get_Compte(client_sender), montant);
+    public static void Transferer(Compte compte_sender, Compte compte_receiver, double montant){
+        Retrait(compte_sender, montant);
         System.out.println("Money sent successfully!");
-        Depot(Banque.get_Compte(client_receiver), montant);
+        Depot(compte_receiver, montant);
         System.out.println("Money received successfully!");
-        System.out.println("Transaction to "+client_receiver.toString()+"Was finished successfully!");
+        Client client_receiver = Banque.get_Client(compte_receiver.getCin());
+        System.out.println("Transaction to "+client_receiver.getPrenom()+" "+client_receiver.getNom()+" was finished successfully!");
     }
     
     public String toString() {
-        return super.toString()+"Votre compte de reference: ("+getRef_compte()+")";
+        return "Reference de Compte: "+getRef_compte()+"\n"+"CIN: "+getCin()+"\n"+"Balance: "+getBalance()+"\n"
+        +"--------------------------------------------------------\n"+
+        "--------------------------------------------------------\n";
     };
 }

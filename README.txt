@@ -1,5 +1,5 @@
 
-!!! fazet demande sayeb 3lina mnha, gerant wl client wl compte wl transaction ye5dmou twa, w ma na9es kn interface!
+!!! Chwya w la terzina fih il projet :) !
 
 # Système de Gestion Bancaire avec Intégration de Base de Données
 

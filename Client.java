@@ -133,7 +133,8 @@ public class Client extends Personne {
     }
 
     public String toString() {
-        return "Mr/Mme " + getPrenom() + " " + getNom() + ". ";
+        return "CIN: "+ getCin() +"\n"+"Nom: "+ getNom() +"\n"+"Prenom: "+ getPrenom()+"\n"
+        +"--------------------------------------------------\n";
     }
 
 }
